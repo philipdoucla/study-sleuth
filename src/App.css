@@ -1,0 +1,33 @@
+.App {
+    text-align: center;
+}
+.logo {
+    /* makes a circular image */
+    border-radius: 999px;
+    height: 40px;
+}
+.App-header {
+    /* navbar using flexbox model */
+    display: flex;
+    align-items: center;
+    background-color: lightgray;
+    height: 60px;
+    margin-bottom: 5px;
+    box-shadow: 0 0 10px 0 #000;
+}
+.App-header-left {
+    /* left section of header sticks to left, does not grow */
+    display: flex;
+    flex-grow: 0;
+    padding: 0 10px;
+}
+.App-header-right {
+    /* right section of header grows leftward, aligned to right */
+    display: flex;
+    flex: 1 0 0;
+    justify-content: flex-end;
+}
+.App-header-right > * {
+    /* spacing between right section items */
+    margin: 0 10px;
+}
