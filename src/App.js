@@ -3,7 +3,7 @@ import Home from './routes/Home.js';
 import Login from './routes/Login.js';
 import Register from './routes/Register.js';
 import './App.css';
-import logo from './logo.png';
+import logo from './study-sleuth-icon.png';
 
 function NavBar() {
     // TODO: add a title that changes depending on the current route
