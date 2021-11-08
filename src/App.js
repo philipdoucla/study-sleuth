@@ -2,6 +2,9 @@ import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import Home from './routes/Home.js';
 import Login from './routes/Login.js';
 import Register from './routes/Register.js';
+import Profile from './routes/Profile.js';
+import FindGroup from './routes/FindGroup.js';
+import Dashboard from './routes/Dashboard.js';
 import './App.css';
 import logo from './study-sleuth-icon.png';
 
