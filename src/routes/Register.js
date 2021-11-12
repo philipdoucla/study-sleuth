@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+//import './page.css';
 
 function Register() {
     // TODO: this page should redirect to the dashboard if the user is authenticated
