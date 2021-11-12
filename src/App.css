@@ -32,12 +32,41 @@
     margin: 0 10px;
 }
 
+body {
+    font-family: 'Arial';
+}
+
 button {
-    background-color: #2774AE; 
+    /*background-color: #2774AE; 
     border: none;
     color: white;
     padding: 16px 32px;
     text-decoration: none;
     margin: 4px 2px;
-    cursor: pointer;
+    cursor: pointer;*/
+
+    border-radius: 20px;
+	border: 1px solid #2774AE;
+	background-color: #2774AE;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	/*transition: transform 80ms*/
   }
+
+input {
+	background-color: #eee;
+	border: none;
+	padding: 12px 15px;
+	margin: 8px 0;
+	width: 50%;
+}
+
+.inputTitle {
+    text-align: left;
+    padding-left: 24%; 
+    color: #2774AE;
+}

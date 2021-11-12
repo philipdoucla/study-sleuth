@@ -1,20 +1,19 @@
 import { Link } from 'react-router-dom';
-//import './page.css';
 
 function Register() {
     // TODO: this page should redirect to the dashboard if the user is authenticated
     return (
         <div>
         <h1>Register</h1>
-        <div>First Name:</div>
+        <div class="inputTitle">First Name:</div>
+        <div><input type="text" class="textbox" placeholder="Joe"/></div>
+        <div class="inputTitle">Last Name:</div>
+        <div><input type="text" class="textbox" placeholder="Bruin"/></div>
+        <div class="inputTitle">UCLA Email:</div>
+        <div><input type="text" class="textbox" placeholder="joebruin@ucla.edu"/></div>
+        <div class="inputTitle">Password:</div>
         <div><input type="text" class="textbox"/></div>
-        <div>Last Name:</div>
-        <div><input type="text" class="textbox"/></div>
-        <div>UCLA Email:</div>
-        <div><input type="text" class="textbox"/></div>
-        <div>Password:</div>
-        <div><input type="text" class="textbox"/></div>
-        <div>Confirm Password:</div>
+        <div class="inputTitle">Confirm Password:</div>
         <div><input type="text" class="textbox"/></div>
         <br></br>
         <div><button type="button">Register</button></div>
