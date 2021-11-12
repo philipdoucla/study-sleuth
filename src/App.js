@@ -6,7 +6,7 @@ import Profile from './routes/Profile.js';
 import FindGroup from './routes/FindGroup.js';
 import Dashboard from './routes/Dashboard.js';
 import './App.css';
-import logo from './study-sleuth-icon.png';
+import logo from './study-sleuth-icon-banner.png';
 
 function NavBar() {
     // TODO: add a title that changes depending on the current route
