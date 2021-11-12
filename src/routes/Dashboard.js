@@ -6,14 +6,18 @@ function Dashboard() {
         <div>
         <h1>Dashboard</h1>
         <div>Your Study Sleuth:</div>
-        <br/>
-        <div>Password:</div>
-        <div><input type="text" class="textbox"/><br></br></div>
-        <div><input type="checkbox"/>Remember Me</div>
-        <br></br>
+        <div>
+            <ul>
+                <li>Philip Do</li>
+                <li>Derek Le</li>
+                <li>Vinh Nguyen</li>
+                <li>James Shiffer</li>
+                <li>Dhaval Vora</li>
+            </ul>
+        </div>
         <div><button type="button">Rate Your Group</button></div>
         <br/>
-        <div><Link to="/find">Find New Group</Link></div>
+        <div><Link to="/findgroup">Find New Group</Link></div>
         </div>
     );
 }
