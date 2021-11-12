@@ -14,9 +14,10 @@ function FindGroup() {
             </select>
         </div>
         <div>Friends?</div>
-        <div><input type="text" class="textbox"/><br></br></div>
-
+        <div><input type="text" class="textbox"/></div>
+        <br></br>
         <div><button type="button">Start Sleuthing!</button></div>
+        <div><Link to="/dashboard">Dashboard</Link></div>
         </div>
     );
 }

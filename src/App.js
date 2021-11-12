@@ -37,6 +37,15 @@ function App() {
                     <Route path="/register">
                         <Register />
                     </Route>
+                    <Route path="/profile">
+                        <Profile />
+                    </Route>
+                    <Route path="/findgroup">
+                        <FindGroup />
+                    </Route>
+                    <Route path="/dashboard">
+                        <Dashboard />
+                    </Route>
                     {/* must come last because of pattern matching */}
                     <Route path="/">
                         <Home />

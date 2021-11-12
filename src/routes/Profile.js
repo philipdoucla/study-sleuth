@@ -43,6 +43,7 @@ function Profile() {
         <br></br>
         <div><button type="button">Save</button></div>
         <br></br>
+        <div><Link to="/dashboard">Dashboard</Link></div>
         </div>
     );
 }
