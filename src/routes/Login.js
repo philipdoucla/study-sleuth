@@ -5,15 +5,16 @@ function Login() {
     return (
         <div>
         <h1>Login</h1>
-        <div>UCLA Email:</div>
-        <div><input type="text" class="textbox"/></div>
-        <div>Password:</div>
-        <div><input type="text" class="textbox"/></div>
-        <div><input type="checkbox"/>Remember Me</div>
+        <div class="inputTitle">UCLA Email:</div>
+        <div><input type="text" class="textbox" placeholder="joebruin@ucla.edu"/></div>
         <br></br>
-        <div><button type="button">Login</button></div>
+        <div class="inputTitle">Password:</div>
+        <div><input type="text" class="textbox"/></div>
+        <div><input type="checkbox" class="check"/>Remember Me</div>
         <br></br>
-        <div><Link to="/dashboard">Go to Dashboard.</Link></div>
+        <br></br>
+        <div><Link to="/dashboard" class="switch">Login</Link></div>
+        <br></br>
         <br></br>
         <div>New User?</div>
         <div><Link to="/register">Register Here.</Link></div>

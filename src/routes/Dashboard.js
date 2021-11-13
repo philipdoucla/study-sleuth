@@ -5,7 +5,7 @@ function Dashboard() {
     return (
         <div>
         <h1>Dashboard</h1>
-        <div>Your Study Sleuth:</div>
+        <div class="inputTitle">Your Study Sleuth:</div>
         <div>
             <ul>
                 <li>Philip Do</li>
@@ -15,9 +15,10 @@ function Dashboard() {
                 <li>Dhaval Vora</li>
             </ul>
         </div>
-        <div><button type="button">Rate Your Group</button></div>
-        <br/>
-        <div><Link to="/findgroup">Find New Group</Link></div>
+        <br></br>
+        <div><button type="button" class="switch">Rate Your Group</button></div>
+        <br></br>
+        <div><Link to="/findgroup" class="switch">Find New Group</Link></div>
         </div>
     );
 }

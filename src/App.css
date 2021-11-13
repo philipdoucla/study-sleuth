@@ -34,7 +34,7 @@ body {
     font-family: 'Arial';
 }
 
-button {
+.switch {
     /*background-color: #2774AE; 
     border: none;
     color: white;
@@ -52,19 +52,25 @@ button {
 	padding: 12px 45px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
+    text-decoration: none;
 	/*transition: transform 80ms*/
-  }
+}
 
 .textbox {
 	background-color: #eee;
 	border: none;
 	padding: 12px 15px;
 	margin: 8px 0;
-	width: 50%;
+	width: 25%;
+}
+
+.check {
+    text-align: left;
+    padding-left: 36.5%; 
 }
 
 .inputTitle {
     text-align: left;
-    padding-left: 24%; 
+    padding-left: 36.5%; 
     color: #2774AE;
 }
