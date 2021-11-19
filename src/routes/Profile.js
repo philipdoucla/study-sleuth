@@ -7,14 +7,14 @@ function Profile() {
     return (
         <div>
         <h1>Profile</h1>
-        <div>Classes:</div>
+        <div class="inputTitle">Classes:</div>
         <div>
             <select name="class"> 
                 <option value="CS35L">CS35L - Software Construction</option>
                 <option value="CS31">CS31 - Intro to Com. Sci. I</option>
             </select>
         </div>
-        <div>Major:</div>
+        <div class="inputTitle">Major:</div>
         <div>
             <select name="major">
                 <option value="CS">Computer Science</option>
@@ -22,7 +22,7 @@ function Profile() {
                 <option value="CSE">Computer Science and Engineering</option>
             </select>
         </div>
-        <div>Residence:</div>
+        <div class="inputTitle">Residence:</div>
         <div>
             <select name="residence">
                 <option value="sproul">Sproul Hall</option>
@@ -32,18 +32,16 @@ function Profile() {
             </select>
         </div>
         <h1>Account</h1>
-        <div>First Name:</div>
+        <div class="inputTitle">First Name:</div>
+        <div><input type="text" class="textbox" placeholder="Joe"/><br></br></div>
+        <div class="inputTitle">Last Name:</div>
+        <div><input type="text" class="textbox" placeholder="Bruin"/><br></br></div>
+        <div class="inputTitle">Password:</div>
         <div><input type="text" class="textbox"/><br></br></div>
-        <div>Last Name:</div>
-        <div><input type="text" class="textbox"/><br></br></div>
-        <div>Password:</div>
-        <div><input type="text" class="textbox"/><br></br></div>
-        <div>Confirm Password:</div>
+        <div class="inputTitle">Confirm Password:</div>
         <div><input type="text" class="textbox"/><br></br></div>
         <br></br>
-        <div><button type="button">Save</button></div>
-        <br></br>
-        <div><Link to="/dashboard">Dashboard</Link></div>
+        <div><Link to="/dashboard" class="switch">Save</Link></div>
         </div>
     );
 }

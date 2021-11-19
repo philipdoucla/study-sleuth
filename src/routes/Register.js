@@ -7,18 +7,21 @@ function Register() {
         <h1>Register</h1>
         <div class="inputTitle">First Name:</div>
         <div><input type="text" class="textbox" placeholder="Joe"/></div>
+        <br></br>
         <div class="inputTitle">Last Name:</div>
         <div><input type="text" class="textbox" placeholder="Bruin"/></div>
+        <br></br>
         <div class="inputTitle">UCLA Email:</div>
         <div><input type="text" class="textbox" placeholder="joebruin@ucla.edu"/></div>
+        <br></br>
         <div class="inputTitle">Password:</div>
         <div><input type="text" class="textbox"/></div>
+        <br></br>
         <div class="inputTitle">Confirm Password:</div>
         <div><input type="text" class="textbox"/></div>
         <br></br>
-        <div><button type="button">Register</button></div>
+        <div><Link to="/profile" class="switch">Register</Link></div>
         <br></br>
-        <div><Link to="/profile">Go to Profile.</Link></div>
         <br></br>
         <div>Returning User?</div>
         <div><Link to="/login">Login Here.</Link></div>
