@@ -5,6 +5,8 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('./models/User.js');
 
+const fetch = require('node-fetch')
+
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -113,6 +115,20 @@ app.post('/register', async (req, res) => {
         return res.status(500).json({ error });
     }
 })
+
+app.get('/departments', async (req, res) => {
+    const response = await fetch('https://api.ucla.edu/sis/publicapis/course/getallcourses');
+    const data = await response.json();
+    res.send({ title: data });
+})
+
+app.post('/classes', async (req, res) => {
+    const {department} = req.body;
+    const response = await fetch('https://api.ucla.edu/sis/publicapis/course/getcoursedetail?subjectarea=' + department);
+    const data = await response.json();
+    res.send({ title: data });
+})
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
