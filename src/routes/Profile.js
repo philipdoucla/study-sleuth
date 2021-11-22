@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import React from 'react';
-import './AutoCompleteText.css';
+import {ClassSearch} from '../AutoComplete.js'
 
 function Profile() {
     // TODO: 
@@ -46,88 +45,7 @@ function Profile() {
     );
 }
 
-class ClassSearch extends React.Component {
-        constructor() {
-            super();
-            this.state = {
-                suggestions: [],
-                academicClasses: [],
-                text : '',
-            };
-        }
 
-        componentWillMount = async () => {
-            let departments = []
-            await fetch("https://api.ucla.edu/sis/publicapis/course/getallcourses")
-                .then(response => response.json())
-                .then(data => {
-                    for(var i in data) {
-                        departments.push(data[i]["subj_area_cd"]);
-                    }
-                })
-            
-            var classes_list = [];
-            for(var i in departments) {
-                console.log(classes_list.length);
-                await fetch('https://api.ucla.edu/sis/publicapis/course/getcoursedetail?subjectarea=' + departments[i])
-                    .then(response => response.json())
-                    .then(data => {
-                        for(var j in data) {
-                            classes_list.push(data[j]["subj_area_cd"] + [data[j]["course_title"]]);
-                        }
-                    });
-                if (classes_list.length > this.state.academicClasses.length)
-                    this.setState({academicClasses: classes_list,}); 
-            }
-
-        }
-
-        onTextChanged = (e) => {
-            const value = e.target.value;
-            let suggestions = [];
-            if (value.length > 0) {
-                const regex = new RegExp(`${value}`, 'i');
-                suggestions = this.state.academicClasses.sort().filter(v => regex.test(v));
-                console.log(suggestions)
-            }
-            console.log(suggestions);
-            this.setState(() => ({suggestions, text:value}));
-        }
-
-        renderSuggestions () {
-            const { suggestions } = this.state;
-            let local_suggestions = suggestions;
-            if (local_suggestions.length === 0) {
-                return null;
-            }
-            if (local_suggestions.length > 10) {
-                local_suggestions = suggestions.slice(0, 10);
-            }
-            return (
-                <ul>
-                    {local_suggestions.map((item) => <li onClick={() => this.suggestionSelected(item)}>{item}</li>)}
-                </ul>
-            );
-        }
-
-        suggestionSelected (value) {
-            this.setState(() => ({
-                text: value,
-                suggestions: [],
-            }));
-        }
-
-        render () {
-            const { text } = this.state;
-            return (
-            <div className="AutoCompleteText">
-                <input value={text} onChange={this.onTextChanged} type="text"/>
-                {this.renderSuggestions()}
-            </div>
-            );
-
-        }
-    }
 
 
 export default Profile;
