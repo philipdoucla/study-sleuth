@@ -116,19 +116,5 @@ app.post('/register', async (req, res) => {
     }
 })
 
-app.get('/departments', async (req, res) => {
-    const response = await fetch('https://api.ucla.edu/sis/publicapis/course/getallcourses');
-    const data = await response.json();
-    res.send({ title: data });
-})
-
-app.post('/classes', async (req, res) => {
-    const {department} = req.body;
-    const response = await fetch('https://api.ucla.edu/sis/publicapis/course/getcoursedetail?subjectarea=' + department);
-    const data = await response.json();
-    res.send({ title: data });
-})
-
-
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
