@@ -4,14 +4,13 @@ import React, {useState} from 'react';
 function Login() {
     // TODO: this page should redirect to the dashboard if the user is authenticated
     
-    const [state, setState] = React.useState({
+    const [state, setState] = useState({
         email: "",
         password: "",
-        remember: false
     })
 
     const handleChange = (e) => {
-        console.log(e.target)
+
         setState({
             ...state,
             [e.target.name]: e.target.value
@@ -19,12 +18,6 @@ function Login() {
         console.log(state);
     }
 
-    const toggleCheck = () => {
-        setState({
-            ...state,
-            remember: !state.remember
-        });
-    }
 
     async function sendLogin() {
 
@@ -32,7 +25,7 @@ function Login() {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
-            credentials: 'same-origin',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -52,7 +45,7 @@ function Login() {
             <div class="inputTitle">Password:</div>
             <div><input type="password" id="password" name="password" class="textbox" value={state.password} onChange = {handleChange}/></div>
             <div>
-                <input type="checkbox" id="remember" name="remember" class="check" value={state.remember} onClick = {toggleCheck}/>
+                <input type="checkbox" id="remember" name="remember" class="check"/>
                 <label className="checktext">Remember Me</label>
             </div>
             <br></br>
