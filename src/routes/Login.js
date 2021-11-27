@@ -1,22 +1,63 @@
 import { Link } from 'react-router-dom';
+import React, {useState} from 'react';
 
 function Login() {
     // TODO: this page should redirect to the dashboard if the user is authenticated
+    
+    const [state, setState] = React.useState({
+        email: "",
+        password: "",
+        remember: false
+    })
+
+    const handleChange = (e) => {
+        console.log(e.target)
+        setState({
+            ...state,
+            [e.target.name]: e.target.value
+        });
+        console.log(state);
+    }
+
+    const toggleCheck = () => {
+        setState({
+            ...state,
+            remember: !state.remember
+        });
+    }
+
+    async function sendLogin() {
+
+        const response = await fetch("http://localhost:5000/login",{
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+            body: JSON.stringify(state)
+        })
+        return response.json();
+    }
+
     return (
         <div>
             <h1>Login</h1>
             <div class="inputTitle">UCLA Email:</div>
-            <div><input type="text" className="textbox" placeholder="joebruin@ucla.edu" /></div>
+            <div><input type="email" id="email" name="email" class="textbox" placeholder="joebruin@ucla.edu" value={state.email} onChange = {handleChange}/></div>
             <br></br>
             <div class="inputTitle">Password:</div>
-            <div><input type="password" className="textbox" /></div>
+            <div><input type="password" id="password" name="password" class="textbox" value={state.password} onChange = {handleChange}/></div>
             <div>
-                <input type="checkbox" className="check" />
+                <input type="checkbox" id="remember" name="remember" class="check" value={state.remember} onClick = {toggleCheck}/>
                 <label className="checktext">Remember Me</label>
             </div>
             <br></br>
             <br></br>
-            <div><Link to="/dashboard" className="switch">Login</Link></div>
+            <div className="switch" onClick={sendLogin}>Login</div>
             <br></br>
             <br></br>
             <div>New User?</div>
