@@ -50,7 +50,7 @@ function Login() {
             </div>
             <br></br>
             <br></br>
-            <div className="switch" onClick={sendLogin}>Login</div>
+            <div><a className="switch" href="#" onClick={sendLogin}>Login</a></div>
             <br></br>
             <br></br>
             <div>New User?</div>
