@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import {useState} from 'react'
+import { useHistory } from "react-router-dom";
+
 function Register() {
     // TODO: this page should redirect to the dashboard if the user is authenticated
-    
+    const history = useHistory();
+
     const [state, setState] = useState({
         firstName: "",
         lastName: "",
@@ -32,6 +35,12 @@ function Register() {
             referrerPolicy: 'no-referrer',
             body: JSON.stringify(state)
         })
+        if(response.status === 200) {
+            history.push("/profile")
+        } else {
+            history.push("/register")
+        }
+
         return response.json();
     }
 

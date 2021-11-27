@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import React, {useState} from 'react';
+import { useHistory } from "react-router-dom";
 
 function Login() {
     // TODO: this page should redirect to the dashboard if the user is authenticated
-    
+    const history = useHistory();
+
+
     const [state, setState] = useState({
         email: "",
         password: "",
@@ -31,7 +34,13 @@ function Login() {
             referrerPolicy: 'no-referrer',
             body: JSON.stringify(state)
         })
-        return response.json();
+        if(response.status === 200) {
+            history.push("/dashboard");
+        } else {
+            history.push("/login");
+        }
+
+        return response.status;
     }
 
     return (
