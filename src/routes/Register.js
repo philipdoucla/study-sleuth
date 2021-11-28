@@ -14,6 +14,8 @@ function Register() {
         passwordConfirm: "",
     })
 
+    const [loading, setLoading] = useState(false);
+
     const handleChange = (e) => {
         setState({
             ...state,
@@ -21,8 +23,15 @@ function Register() {
         });
     }
 
-    async function sendRegister() {
+    const handleKeypress = e => {
+        if(e.key === "Enter") {
+            sendRegister();
+        }
+    }
 
+
+    async function sendRegister() {
+        setLoading(true);
         const response = await fetch("http://localhost:5000/register",{
             method: 'POST',
             mode: 'cors',
@@ -40,13 +49,13 @@ function Register() {
         } else {
             history.push("/register")
         }
-
+        setLoading(false);
         return response.json();
     }
 
 
     return (
-        <div>
+        <div onKeyPress={handleKeypress}>
         <h1>Register</h1>
         <div class="inputTitle">First Name:</div>
         <div><input type="text" className="textbox" name="firstName" onChange={handleChange}placeholder="Joe"/></div>
@@ -63,7 +72,7 @@ function Register() {
         <div class="inputTitle">Confirm Password:</div>
         <div><input type="password" className="textbox" name="passwordConfirm" onChange={handleChange}/></div>
         <br></br>
-        <div><a href="#" className="switch" onClick={sendRegister}>Register</a></div>
+        <div><a href="#" className="switch" onClick={sendRegister}>{!loading ? "Register" : "Loading..."}</a></div>
         <br></br>
         <br></br>
         <div>Returning User?</div>

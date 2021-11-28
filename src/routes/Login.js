@@ -10,7 +10,9 @@ function Login() {
     const [state, setState] = useState({
         email: "",
         password: "",
-    })
+    });
+
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         setState({
@@ -19,9 +21,15 @@ function Login() {
         });
     }
 
+    const handleKeypress = e => {
+        if(e.key === "Enter") {
+            sendLogin();
+        }
+    }
+
 
     async function sendLogin() {
-
+        setLoading(true);
         const response = await fetch("http://localhost:5000/login",{
             method: 'POST',
             mode: 'cors',
@@ -39,12 +47,13 @@ function Login() {
         } else {
             history.push("/login");
         }
-
+        setLoading(false);
         return response.status;
     }
 
     return (
-        <div>
+        
+        <div onKeyPress={handleKeypress}>
             <h1>Login</h1>
             <div class="inputTitle">UCLA Email:</div>
             <div><input type="email" id="email" name="email" class="textbox" placeholder="joebruin@ucla.edu" value={state.email} onChange = {handleChange}/></div>
@@ -57,7 +66,7 @@ function Login() {
             </div>
             <br></br>
             <br></br>
-            <div><a className="switch" href="#" onClick={sendLogin}>Login</a></div>
+            <div><a className="switch" href="#" onClick={sendLogin}>{!loading ? "Login" : "Loading..."}</a></div>
             <br></br>
             <br></br>
             <div>New User?</div>
