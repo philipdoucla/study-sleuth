@@ -9,6 +9,8 @@ const path = require('path');
 
 dotenv.config({ path: path.join(__dirname, '..', '.env.local') });
 
+const fetch = require('node-fetch')
+
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
