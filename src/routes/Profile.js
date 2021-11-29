@@ -24,10 +24,15 @@ function Profile() {
         <div className="inputTitle">Residence:</div>
         <div>
             <select name="residence" className="selector">
-                <option value="sproul">Sproul Hall</option>
-                <option value="de neve">De Neve Hall</option>
-                <option value="hedrick">Hedrick Hall</option>
-                <option value="rieber">Rieber Hall</option>
+                <option value="centennial">Centennial Hall</option>
+                <option value="de_neve">De Neve Plaza</option>
+                <option value="dykstra">Dykstra Hall</option>
+                <option value="hedrick">Hedrick Court</option>
+                <option value="olympic">Olympic Hall</option>
+                <option value="rieber">Rieber Court</option>
+                <option value="sproul">Sproul Plaza</option>
+                <option value="sunset">Sunset Village</option>
+                <option value="appartments">Appartments</option>
             </select>
         </div>
         <h1>Account</h1>
