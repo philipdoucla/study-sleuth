@@ -57,20 +57,40 @@ body {
 }
 
 .textbox {
-	background-color: #eee;
-	border: none;
+	background-color: #eee;	
+    border: none;
 	padding: 12px 15px;
-	margin: 8px 0;
+	margin-top: 8px;
+    margin-bottom: 8px;
 	width: 25%;
 }
 
 .check {
+    margin-right: 0.5%;
+}
+
+.checktext {
     text-align: left;
-    padding-left: 36.5%; 
+    display:inline;
+    margin-right: 18%;
 }
 
 .inputTitle {
     text-align: left;
     padding-left: 36.5%; 
     color: #2774AE;
+}
+
+.selector {
+    background-color: #eee;	
+    border: none;
+	padding: 12px 15px;
+	margin-top: 8px;
+    margin-bottom: 8px;
+	width: 27%;
+}
+
+.grouplist {
+    text-align: left;
+    padding-left: 38.5%;
 }

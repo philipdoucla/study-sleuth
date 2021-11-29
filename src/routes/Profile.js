@@ -9,21 +9,21 @@ function Profile() {
     return (
         <div>
         <h1>Profile</h1>
-        <div class="inputTitle">Classes:</div>
+        <div className="inputTitle">Classes:</div>
         <div>
             <center><ClassSearch /></center>
         </div>
-        <div class="inputTitle">Major:</div>
+        <div className="inputTitle">Major:</div>
         <div>
-            <select name="major">
+            <select name="major" className="selector">
                 <option value="CS">Computer Science</option>
                 <option value="CE">Computer Engineering</option>
                 <option value="CSE">Computer Science and Engineering</option>
             </select>
         </div>
-        <div class="inputTitle">Residence:</div>
+        <div className="inputTitle">Residence:</div>
         <div>
-            <select name="residence">
+            <select name="residence" className="selector">
                 <option value="sproul">Sproul Hall</option>
                 <option value="de neve">De Neve Hall</option>
                 <option value="hedrick">Hedrick Hall</option>
@@ -32,15 +32,15 @@ function Profile() {
         </div>
         <h1>Account</h1>
         <div class="inputTitle">First Name:</div>
-        <div><input type="text" class="textbox" placeholder="Joe"/><br></br></div>
+        <div><input type="text" className="textbox" placeholder="Joe"/><br></br></div>
         <div class="inputTitle">Last Name:</div>
-        <div><input type="text" class="textbox" placeholder="Bruin"/><br></br></div>
+        <div><input type="text" className="textbox" placeholder="Bruin"/><br></br></div>
         <div class="inputTitle">Password:</div>
-        <div><input type="text" class="textbox"/><br></br></div>
+        <div><input type="text" className="textbox"/><br></br></div>
         <div class="inputTitle">Confirm Password:</div>
-        <div><input type="text" class="textbox"/><br></br></div>
+        <div><input type="text" className="textbox"/><br></br></div>
         <br></br>
-        <div><Link to="/dashboard" class="switch">Save</Link></div>
+        <div><Link to="/dashboard" className="switch">Save</Link></div>
         </div>
     );
 }

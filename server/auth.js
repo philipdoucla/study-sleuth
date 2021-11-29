@@ -66,9 +66,13 @@ routes.post('/login', passport.authenticate('local'),
     }
 );
 
+routes.post('/logout', authenticated, async (req, res) => {
+    req.logout();
+    return res.json({});
+});
+
 routes.post('/register', async (req, res) => {
     const { email, password, passwordConfirm, firstName, lastName } = req.body;
-
     if (!email || !isValidEmail(email)) {
         return res.status(422).json({
             error: 'Email address must be provided'
