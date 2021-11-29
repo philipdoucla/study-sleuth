@@ -9,7 +9,7 @@ function Home() {
             <span>
                 <img className="icon" align="left" src={icon} />
             </span>
-            <span className="description_box">
+            <span>
                 <br/>
                 <br/>
                 <br/>
