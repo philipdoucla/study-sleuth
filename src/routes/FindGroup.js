@@ -58,7 +58,7 @@ function FindGroup() {
     return (
         <div onChange={handleKeypress}>
             <h1>Sleuthing for a Sleuth</h1>
-            <div class="inputTitle">Preferred Group Size:</div>
+            <div className="inputTitle">Preferred Group Size:</div>
             <div>
                 <select name="size" className="selector" value={state.groupSize} onChange={handleChange}>
                     <option value="2">2</option>
@@ -68,7 +68,7 @@ function FindGroup() {
                 </select>
             </div>
             <br></br>
-            <div class="inputTitle">Friends?</div>
+            <div className="inputTitle">Friends?</div>
             <div><input type="text" className="textbox" value={state.friendCode} onChange={handleChange}/></div>
             <br></br>
             <div><a className="switch" href="#" onClick={sendSearch}>{!loading ? "Start Sleuthing!" : "Loading..."}</a></div>

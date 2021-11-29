@@ -36,13 +36,13 @@ function Profile() {
             </select>
         </div>
         <h1>Account</h1>
-        <div class="inputTitle">First Name:</div>
+        <div className="inputTitle">First Name:</div>
         <div><input type="text" className="textbox" placeholder="Joe"/><br></br></div>
-        <div class="inputTitle">Last Name:</div>
+        <div className="inputTitle">Last Name:</div>
         <div><input type="text" className="textbox" placeholder="Bruin"/><br></br></div>
-        <div class="inputTitle">Password:</div>
+        <div className="inputTitle">Password:</div>
         <div><input type="text" className="textbox"/><br></br></div>
-        <div class="inputTitle">Confirm Password:</div>
+        <div className="inputTitle">Confirm Password:</div>
         <div><input type="text" className="textbox"/><br></br></div>
         <br></br>
         <div><Link to="/dashboard" className="switch">Save</Link></div>
