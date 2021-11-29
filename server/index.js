@@ -10,6 +10,8 @@ const cors = require('cors');
 
 dotenv.config({ path: path.join(__dirname, '..', '.env.local') });
 
+const fetch = require('node-fetch')
+
 const app = express();
 app.use(cors({
     origin: 'http://localhost:3000',

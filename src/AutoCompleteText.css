@@ -1,0 +1,33 @@
+.AutoCompleteText {
+    width: 25%;
+	margin: 8px 0;
+    font-size: 14px;
+    background-color: #eee;
+    box-sizing: border-box;
+}
+
+.AutoCompleteText input {
+    list-style-type: none;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.AutoCompleteText ul {
+    list-style-type: "";
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+.AutoCompleteText li:hover {
+    background-color: cadetblue;
+}
+.AutoCompleteText ul::before {
+    content: "";
+}
+
+.AutoCompleteText li {
+    padding: 0;
+}

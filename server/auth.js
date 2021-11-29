@@ -11,25 +11,28 @@ const { isValidEmail, isValidPassword } = require("../shared/validation.js");
 
 /* Passport */
 function initPassport() {
-    passport.use(new LocalStrategy({
-        usernameField: 'email',
-    }, async (email, password, done) => {
-        try {
-            const user = await User.findOne({
-                where: {email}
-            });
-            if (!user) {
-                return done(null, false, {error: 'A user with that email does not exist.'});
+    passport.use(
+        new LocalStrategy(
+            { usernameField: 'email' },
+            async (email, password, done) => {
+                try {
+                    const user = await User.findOne({
+                        where: { email }
+                    });
+                    if (!user) {
+                        return done(null, false, { error: 'A user with that email does not exist.' });
+                    }
+                    const correctPassword = await bcrypt.compare(password, user.password);
+                    if (!correctPassword) {
+                        return done(null, false, { error: 'Incorrect password.' });
+                    }
+                    return done(null, user);
+                } catch (err) {
+                    return done(err);
+                }
             }
-            const correctPassword = await bcrypt.compare(password, user.password);
-            if (!correctPassword) {
-                return done(null, false, {error: 'Incorrect password.'});
-            }
-            return done(null, user);
-        } catch (err) {
-            return done(err);
-        }
-    }));
+        )
+    );
 
     passport.serializeUser((user, done) => {
         done(null, user.id);
@@ -59,12 +62,22 @@ function authenticated(req, res, next) {
 /* Express */
 const routes = express.Router();
 
-routes.post('/login', passport.authenticate('local'),
-    async (req, res) => {
-        // this function is only reached if login succeeded
-        res.status(200).json(req.user);
-    }
-);
+routes.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.status(401).send(info);
+        }
+        req.logIn(user, err => {
+            if (err) {
+                return next(err);
+            }
+            return res.json(user);
+        });
+    })(req, res, next)
+});
 
 routes.post('/logout', authenticated, async (req, res) => {
     req.logout();
