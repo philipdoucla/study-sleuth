@@ -2,6 +2,7 @@
  * auth.js
  * Passport authentication code, API endpoints relating to auth
  */
+const { authenticated } = require("./middleware");
 const bcrypt = require("bcrypt");
 const express = require("express");
 const { Strategy: LocalStrategy } = require("passport-local");
@@ -46,17 +47,6 @@ function initPassport() {
             done(err, null);
         }
     });
-}
-
-/* Middleware */
-function authenticated(req, res, next) {
-    if (!req.session || !req.user) {
-        return res.status(401).json({
-            error: 'You must be logged in.'
-        });
-    } else {
-        return next();
-    }
 }
 
 /* Express */

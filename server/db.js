@@ -96,8 +96,8 @@ User.init({
     tableName: 'users'
 });
 
-Group.hasMany(User);
-User.hasOne(Group);
+Group.hasMany(User, { foreignKey: 'group' });
+User.belongsTo(Group, { foreignKey: 'group' });
 
 (async () => {
     await db.authenticate();
