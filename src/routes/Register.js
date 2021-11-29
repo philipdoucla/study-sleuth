@@ -32,7 +32,7 @@ function Register() {
 
     async function sendRegister() {
         setLoading(true);
-        const response = await fetch("http://localhost:5000/register",{
+        await fetch("http://localhost:5000/register",{
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -44,13 +44,17 @@ function Register() {
             referrerPolicy: 'no-referrer',
             body: JSON.stringify(state)
         })
-        if(response.status === 200) {
-            history.push("/profile")
-        } else {
-            history.push("/register")
-        }
+        .then(async response => {
+            if(response.ok) {
+                history.push("/profile")
+            } else {
+                return response.json()
+            }
+        })
+        .then(data => {
+            if(data) alert(data["error"])
+        })
         setLoading(false);
-        return response.json();
     }
 
 

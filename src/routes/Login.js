@@ -30,7 +30,7 @@ function Login() {
 
     async function sendLogin() {
         setLoading(true);
-        const response = await fetch("http://localhost:5000/login",{
+        await fetch("http://localhost:5000/login",{
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -42,13 +42,17 @@ function Login() {
             referrerPolicy: 'no-referrer',
             body: JSON.stringify(state)
         })
-        if(response.status === 200) {
-            history.push("/dashboard");
-        } else {
-            history.push("/login");
-        }
+        .then(async response => {
+            if(response.ok) {
+                history.push("/dashboard")
+            } else {
+                return response.json()
+            }
+        })
+        .then(data => {
+            if(data) alert(data["error"])
+        })
         setLoading(false);
-        return response.status;
     }
 
     return (
