@@ -30,7 +30,7 @@ function FindGroup() {
     // don't fully understand, must revise later
     async function sendSearch() {
         setLoading(true);
-        const response = await fetch("http://localhost:5000/login",{
+        await fetch("http://localhost:5000/login",{
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -42,15 +42,18 @@ function FindGroup() {
             referrerPolicy: 'no-referrer',
             body: JSON.stringify(state)
         })
-        if(response.status === 200) {
-            history.push("/dashboard");
-        } else {
-            history.push("/login");
-        }
+        .then(async response => {
+            if(response.ok) {
+                history.push("/dashboard")
+            } else {
+                return response.json()
+            }
+        })
+        .then(data => {
+            if(data) alert(data["error"])
+        })
         setLoading(false);
-        return response.status;
     }
-
 
     return (
         <div onChange={handleKeypress}>
@@ -68,7 +71,7 @@ function FindGroup() {
             <div class="inputTitle">Friends?</div>
             <div><input type="text" className="textbox" value={state.friendCode} onChange={handleChange}/></div>
             <br></br>
-            <div><Link to="/dashboard" className="switch">Start Sleuthing!</Link></div>
+            <div><a className="switch" href="#" onClick={sendSearch}>{!loading ? "Start Sleuthing!" : "Loading..."}</a></div>
         </div>
     );
 }
