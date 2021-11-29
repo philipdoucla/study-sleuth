@@ -1,8 +1,19 @@
 .App {
     text-align: center;
 }
+.icon {
+    height: 450px;
+}
 .logo {
     height: 50px;
+}
+.description {
+    text-align: left;
+    color: #2774AE;
+    font-size: 21px;
+    line-height: 21px;
+    
+    padding-right: 100px;
 }
 .App-header {
     /* navbar using flexbox model */

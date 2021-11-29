@@ -61,19 +61,19 @@ function Register() {
     return (
         <div onKeyPress={handleKeypress}>
         <h1>Register</h1>
-        <div class="inputTitle">First Name:</div>
+        <div className="inputTitle">First Name:</div>
         <div><input type="text" className="textbox" name="firstName" onChange={handleChange}placeholder="Joe"/></div>
         <br></br>
-        <div class="inputTitle">Last Name:</div>
+        <div className="inputTitle">Last Name:</div>
         <div><input type="text" className="textbox" name="lastName" onChange={handleChange} placeholder="Bruin"/></div>
         <br></br>
-        <div class="inputTitle">UCLA Email:</div>
+        <div className="inputTitle">UCLA Email:</div>
         <div><input type="email" className="textbox" name="email" onChange={handleChange} placeholder="joebruin@ucla.edu"/></div>
         <br></br>
-        <div class="inputTitle">Password:</div>
+        <div className="inputTitle">Password:</div>
         <div><input type="password" className="textbox" name="password" onChange={handleChange}/></div>
         <br></br>
-        <div class="inputTitle">Confirm Password:</div>
+        <div className="inputTitle">Confirm Password:</div>
         <div><input type="password" className="textbox" name="passwordConfirm" onChange={handleChange}/></div>
         <br></br>
         <div><a href="#" className="switch" onClick={sendRegister}>{!loading ? "Register" : "Loading..."}</a></div>

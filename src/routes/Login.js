@@ -59,13 +59,13 @@ function Login() {
         
         <div onKeyPress={handleKeypress}>
             <h1>Login</h1>
-            <div class="inputTitle">UCLA Email:</div>
-            <div><input type="email" id="email" name="email" class="textbox" placeholder="joebruin@ucla.edu" value={state.email} onChange = {handleChange}/></div>
+            <div className="inputTitle">UCLA Email:</div>
+            <div><input type="email" id="email" name="email" className="textbox" placeholder="joebruin@ucla.edu" value={state.email} onChange = {handleChange}/></div>
             <br></br>
-            <div class="inputTitle">Password:</div>
-            <div><input type="password" id="password" name="password" class="textbox" value={state.password} onChange = {handleChange}/></div>
+            <div className="inputTitle">Password:</div>
+            <div><input type="password" id="password" name="password" className="textbox" value={state.password} onChange = {handleChange}/></div>
             <div>
-                <input type="checkbox" id="remember" name="remember" class="check"/>
+                <input type="checkbox" id="remember" name="remember" className="check"/>
                 <label className="checktext">Remember Me</label>
             </div>
             <br></br>
