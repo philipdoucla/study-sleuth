@@ -1,18 +1,17 @@
 import { Link } from 'react-router-dom';
+import {ClassSearch} from '../AutoComplete.js'
 
 function Profile() {
     // TODO: 
     // 1) the class select bar needs to be adding/removing from list of classes, not just one
     // 2) need more comprehensive lists
+
     return (
         <div>
         <h1>Profile</h1>
         <div className="inputTitle">Classes:</div>
         <div>
-            <select name="class" className="selector"> 
-                <option value="CS35L">CS35L - Software Construction</option>
-                <option value="CS31">CS31 - Intro to Com. Sci. I</option>
-            </select>
+            <center><ClassSearch /></center>
         </div>
         <div className="inputTitle">Major:</div>
         <div>
@@ -45,5 +44,8 @@ function Profile() {
         </div>
     );
 }
+
+
+
 
 export default Profile;
