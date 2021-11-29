@@ -1,4 +1,4 @@
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link, useLocation } from 'react-router-dom';
 import Home from './routes/Home.js';
 import Login from './routes/Login.js';
 import Register from './routes/Register.js';
@@ -7,23 +7,42 @@ import FindGroup from './routes/FindGroup.js';
 import Dashboard from './routes/Dashboard.js';
 import './App.css';
 import logo from './study-sleuth-icon-banner.png';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 function NavBar() {
     // TODO: add a title that changes depending on the current route
-    return (
-        <header className="App-header">
-            <div className="App-header-left">
-                <a href="/">
-                    <img className="logo" src={logo} />
-                </a>
-            </div>
-            <div className="App-header-right">
-                <Link to="/login">Login</Link>
-                <Link to="/register">Register</Link>
-            </div>
-        </header>
-    );
+    if(useLocation().pathname !== "/dashboard")
+    {
+        return (
+            <header className="App-header">
+                <div className="App-header-left">
+                    <a href="/">
+                        <img className="logo" src={logo} />
+                    </a>
+                </div>
+                <div className="App-header-right">
+                    <Link to="/login">Login</Link>
+                    <Link to="/register">Register</Link>
+                </div>
+            </header>
+        );
+    }
+    else
+    {
+        //TODO: Actually logout when this runs
+        return (
+            <header className="App-header">
+                <div className="App-header-left">
+                    <a href="/">
+                        <img className="logo" src={logo} />
+                    </a>
+                </div>
+                <div className="App-header-right">
+                    <Link to="/login">Logout</Link>
+                </div>
+            </header>
+        );
+    }
 }
 class App extends React.Component {
     
