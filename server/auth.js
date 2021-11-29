@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const express = require("express");
 const { Strategy: LocalStrategy } = require("passport-local");
 const passport = require('passport');
-const User = require("./models/User.js");
+const { User } = require('./db');
 const { isValidEmail, isValidPassword } = require("../shared/validation.js");
 
 /* Passport */
@@ -70,7 +70,7 @@ routes.post('/login', (req, res, next) => {
         if (!user) {
             return res.status(401).send(info);
         }
-        req.logIn(user, err => {
+        req.logIn(user, (err) => {
             if (err) {
                 return next(err);
             }
