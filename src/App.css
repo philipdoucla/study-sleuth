@@ -3,6 +3,9 @@
 }
 .icon {
     height: 450px;
+    padding-top: 50px;
+    padding-left: 60px;
+    padding-right: 50px;
 }
 .logo {
     height: 50px;
@@ -13,7 +16,7 @@
     font-size: 21px;
     line-height: 21px;
     
-    padding-right: 100px;
+    margin-right: 60px;
 }
 .App-header {
     /* navbar using flexbox model */
