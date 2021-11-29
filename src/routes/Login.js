@@ -6,6 +6,7 @@ function Login() {
     // TODO: this page should redirect to the dashboard if the user is authenticated
     const history = useHistory();
 
+
     const [state, setState] = useState({
         email: "",
         password: "",
@@ -25,6 +26,7 @@ function Login() {
             sendLogin();
         }
     }
+
 
     async function sendLogin() {
         setLoading(true);
