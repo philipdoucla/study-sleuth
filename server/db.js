@@ -98,6 +98,8 @@ User.init({
         get() {
             return () => this.getDataValue('password');
         }
+        // note: I don't think it's possible to automatically hash the password
+        // inside the setter, because hashing returns a promise, and we can't do that here
     },
     major: {
         type: DataTypes.INTEGER
