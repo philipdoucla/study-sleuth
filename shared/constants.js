@@ -11,9 +11,9 @@ module.exports = {
     }),
     ResidenceHalls: Object.freeze({
         "De Neve": 0,
-        "Hedrick": 1,
+        "Sproul/Sunset Village": 1,
         "Rieber": 2,
-        "Sproul/Sunset Village": 3
+        "Hedrick": 3
     }),
     GroupStates: Object.freeze({
         NotSearching: 0,
