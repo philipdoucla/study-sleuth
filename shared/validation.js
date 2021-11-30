@@ -18,10 +18,33 @@ const isValidEmail = function (email) {
  * @returns {boolean}
  */
 const isValidPassword = function (password) {
-    return password.length >= 6;
+    return typeof password === 'string' && password.length >= 6;
+};
+
+/**
+ * Verifies that the desired group size is a valid number.
+ * @param {Number} sz
+ */
+const isValidGroupSize = function (sz) {
+    return Number.isInteger(sz) && sz >= 2 && sz < 10;
+};
+
+/**
+ * Verifies that a friend code list is valid.
+ * @param {String[]} fcs
+ */
+const isValidFriendCodeList = function (fcs) {
+    for (const fc of fcs) {
+        if (!/[0-9A-F]{3}-[0-9A-F]{3}-[0-9A-F]{3}/i.test(fc)) {
+            return false;
+        }
+    }
+    return true;
 };
 
 module.exports = {
     isValidEmail,
+    isValidFriendCodeList,
+    isValidGroupSize,
     isValidPassword
 };

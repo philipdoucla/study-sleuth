@@ -23,7 +23,7 @@ function initPassport() {
                     if (!user) {
                         return done(null, false, { error: 'A user with that email does not exist.' });
                     }
-                    const correctPassword = await bcrypt.compare(password, user.password);
+                    const correctPassword = await bcrypt.compare(password, user.password());
                     if (!correctPassword) {
                         return done(null, false, { error: 'Incorrect password.' });
                     }

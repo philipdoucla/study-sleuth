@@ -36,6 +36,11 @@ Group.init({
         allowNull: false,
         unique: true,
         primaryKey: true
+    },
+    targetSize: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        field: 'target_size'
     }
 }, {
     sequelize: db,
@@ -66,13 +71,22 @@ User.init({
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        // require explicit password() call to view the password
+        // otherwise, skipped by serialization
+        get() {
+            return () => this.getDataValue('password');
+        }
     },
     major: {
         type: DataTypes.INTEGER
     },
     residence: {
         type: DataTypes.INTEGER
+    },
+    academicClass: {
+        type: DataTypes.STRING,
+        field: 'academic_class'
     },
     groupState: {
         type: DataTypes.INTEGER,
@@ -81,6 +95,10 @@ User.init({
     preferredGroupSize: {
         type: DataTypes.INTEGER,
         field: 'preferred_group_size'
+    },
+    startedSearchAt: {
+        type: DataTypes.DATE,
+        field: 'started_search_at'
     },
     group: {
         type: DataTypes.INTEGER,
