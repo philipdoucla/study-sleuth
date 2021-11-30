@@ -1,10 +1,8 @@
-import { Link } from 'react-router-dom';
 import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
 
 function FindGroup() {
     // replicated the structure of Login.js
-        // probably needs much fixing
     const history = useHistory();
     
     const [state, setState] = useState({
@@ -27,10 +25,9 @@ function FindGroup() {
         }
     }
 
-    // don't fully understand, must revise later
     async function sendSearch() {
         setLoading(true);
-        await fetch("http://localhost:5000/login",{
+        await fetch("http://localhost:5000/login",{ // correctly implement later
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -60,7 +57,7 @@ function FindGroup() {
             <h1>Sleuthing for a Sleuth</h1>
             <div className="inputTitle">Preferred Group Size:</div>
             <div>
-                <select name="size" className="selector" value={state.groupSize} onChange={handleChange}>
+                <select name="groupSize" className="selector" value={state.groupSize} onChange={handleChange}>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
@@ -69,7 +66,7 @@ function FindGroup() {
             </div>
             <br></br>
             <div className="inputTitle">Friends?</div>
-            <div><input type="text" className="textbox" value={state.friendCode} onChange={handleChange}/></div>
+            <div><input type="text" name="friendCode" className="textbox" value={state.friendCode} onChange={handleChange}/></div>
             <br></br>
             <div><a className="switch" href="#" onClick={sendSearch}>{!loading ? "Start Sleuthing!" : "Loading..."}</a></div>
         </div>

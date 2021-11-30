@@ -10,7 +10,6 @@ import logo from './study-sleuth-icon-banner.png';
 import React, { useState, useEffect } from 'react';
 
 function NavBar() {
-    // TODO: add a title that changes depending on the current route
     if(useLocation().pathname !== "/dashboard")
     {
         return (
