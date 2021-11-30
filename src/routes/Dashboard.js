@@ -1,10 +1,10 @@
 import { Link, Redirect } from 'react-router-dom';
 
-function Dashboard({isLogged}) {
+const Dashboard = ({loggedIn}) => {
     // TODO: needs to actually display data and junk
     // the findgroup login must save account login
 
-    if(!isLogged) {
+    if(!loggedIn) {
         return (<Redirect to="login"/>)
     }
 

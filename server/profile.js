@@ -6,7 +6,6 @@ const routes = express.Router();
 
 routes.post('/profile', authenticated, async (req, res) => {
     let {academicClass, major, residence, firstName, lastName, password, cPassword} = req.body;
-    console.log(academicClass);
     const user = await User.findOne({
         where: {
             id: req.user.id
@@ -20,7 +19,6 @@ routes.post('/profile', authenticated, async (req, res) => {
 
     await user.save()
     .then( () => {
-        console.log(user);
         return res.status(200).json("Updated User");
     })
     .catch(() => {
