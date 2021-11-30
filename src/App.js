@@ -99,10 +99,10 @@ class App extends React.Component {
                             <Profile loggedIn={this.state.loggedIn}/>
                         </Route>
                         <Route path="/findgroup">
-                            <FindGroup />
+                            <FindGroup loggedIn={this.state.loggeddIn}/>
                         </Route>
                         <Route path="/dashboard">
-                            <Dashboard />
+                            <Dashboard loggedIn={this.state.loggedIn}/>
                         </Route>
                         {/* must come last because of pattern matching */}
                         <Route path="/">

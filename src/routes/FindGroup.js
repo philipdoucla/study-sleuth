@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 
-function FindGroup() {
+function FindGroup({loggedIn}) {
     // replicated the structure of Login.js
     const history = useHistory();
 
@@ -50,6 +50,10 @@ function FindGroup() {
                 if (data) alert(data["error"])
             })
         setLoading(false);
+    }
+
+    if(!loggedIn) {
+        return (<Redirect to="/login"/>)
     }
 
     return (
