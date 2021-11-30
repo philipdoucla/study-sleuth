@@ -7,7 +7,7 @@ function Dashboard() {
         // will need to display group data dynamically
         <div>
             <h1>Dashboard</h1>
-            <div className="inputTitle">Your Study Sleuth:</div>
+            <div className="GroupTitle">Your Study Sleuth:</div>
             <div>
                 <ul className="grouplist">
                     <li>Philip Do</li>

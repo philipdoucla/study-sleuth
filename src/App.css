@@ -95,6 +95,11 @@ body {
     color: #2774AE;
 }
 
+.GroupTitle {
+    text-align: center;
+    color: #2774AE;
+}
+
 .selector {
     background-color: #eee;	
     border: none;
