@@ -10,7 +10,8 @@ create table users
     major                integer,
     residence            integer,
     group_state          integer default 0 not null,
-    preferred_group_size integer
+    preferred_group_size integer,
+    academic_class       varchar(255)
 );
 
 create unique index users_email_uindex

@@ -1,16 +1,15 @@
-const Auth = require('./auth.js');
+const AuthController = require('./auth.js');
+const GroupController = require('./group.js');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const dotenv = require('dotenv');
 const express = require('express');
-const passport = require('passport');
 const session = require('express-session');
+const passport = require('passport');
 const path = require('path');
-const cors = require('cors');
 
 dotenv.config({ path: path.join(__dirname, '..', '.env.local') });
-
-const fetch = require('node-fetch')
 
 const app = express();
 app.use(cors({
@@ -29,8 +28,10 @@ app.use(session({
 }));
 app.use(passport.session());
 
-Auth.initPassport();
-app.use(Auth.routes);
+// controller routes separated out into their own files
+AuthController.initPassport();
+app.use(AuthController.routes);
+app.use(GroupController.routes);
 
 app.get('/', (req, res) => {
     res.send('hello world');

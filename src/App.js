@@ -9,50 +9,89 @@ import './App.css';
 import logo from './study-sleuth-icon-banner.png';
 import React, { useState, useEffect } from 'react';
 
-function NavBar() {
-    if(useLocation().pathname !== "/dashboard")
-    {
-        return (
-            <header className="App-header">
-                <div className="App-header-left">
-                    <a href="/">
-                        <img className="logo" src={logo} />
-                    </a>
-                </div>
-                <div className="App-header-right">
-                    <Link to="/login">Login</Link>
-                    <Link to="/register">Register</Link>
-                </div>
-            </header>
-        );
+class NavBar extends React.Component {
+    // TODO: add a title that changes depending on the current route
+    constructor(props) {
+        super(props);
     }
-    else
-    {
-        //TODO: Actually logout when this runs
-        return (
-            <header className="App-header">
-                <div className="App-header-left">
-                    <a href="/">
-                        <img className="logo" src={logo} />
-                    </a>
-                </div>
-                <div className="App-header-right">
-                    <Link to="/login">Logout</Link>
-                </div>
-            </header>
-        );
+    //if(useLocation().pathname !== "/dashboard")
+
+    logout() {
+        fetch("http:localhost:5000/logout",{
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'include',
+        })
     }
+
+    render() {
+        if(!this.props.loggedIn)
+        {
+            return (
+                <header className="App-header">
+                    <div className="App-header-left">
+                        <a href="/">
+                            <img className="logo" src={logo} />
+                            </a>
+                    </div>
+                    <div className="App-header-right">
+                        <Link to="/login">Login</Link>
+                        <Link to="/register">Register</Link>
+                    </div>
+                </header>
+            );
+        }
+        else
+        {
+            return (
+                 <header className="App-header">
+                    <div className="App-header-left">
+                        <a href="/">
+                            <img className="logo" src={logo} />
+                        </a>
+                    </div>
+                    <div className="App-header-right">
+                        <a href="/login" onClick={this.logout()}>Logout</a>
+                    </div>
+                    </header>
+            );
+        }
+    }
+    
 }
 class App extends React.Component {
+    
+    constructor(props) {
+        super(props);
+        this.state = {loggedIn: false};
+    }
+
+    updateLoggedIn = () => {
+        const that = this;
+        fetch('http://localhost:5000/me',{
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'include',}
+            )
+        .then(response => {
+            return response.ok
+        })
+        .then( thing => {
+            that.setState({loggedIn: thing});
+        }
+        )
+    }
     
     render() {
         return (
             <BrowserRouter>
                 <div className="App">
-                    <NavBar />
+                    <NavBar loggedIn={this.state.loggedIn}/>
                     <Switch>
                         <Route path="/login">
-                            <Login />
+                            <Login updateLoggedIn={this.updateLoggedIn}/>
                         </Route>
                         <Route path="/register">
                             <Register />
