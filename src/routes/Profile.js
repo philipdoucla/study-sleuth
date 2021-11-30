@@ -88,14 +88,14 @@ function Profile() {
             </div>
             <h1>Account</h1>
             <div className="inputTitle">First Name:</div>
-            <div><input type="text" name="firstName" className="textbox" placeholder="Joe" value={state.firstName} onChange={handleChange}/><br></br></div>
+            <div><input type="text" name="firstName" className="textbox" placeholder="Joe" value={state.firstName} onChange={handleChange} /><br /></div>
             <div className="inputTitle">Last Name:</div>
-            <div><input type="text" name="lastName" className="textbox" placeholder="Bruin" value={state.lastName} onChange={handleChange}/><br></br></div>
+            <div><input type="text" name="lastName" className="textbox" placeholder="Bruin" value={state.lastName} onChange={handleChange} /><br /></div>
             <div className="inputTitle">Password:</div>
-            <div><input type="text" name="password" className="textbox" value={state.password} onChange={handleChange}/><br></br></div>
+            <div><input type="text" name="password" className="textbox" value={state.password} onChange={handleChange} /><br /></div>
             <div className="inputTitle">Confirm Password:</div>
-            <div><input type="text" name="cPassword" className="textbox" value={state.cPassword} onChange={handleChange}/><br></br></div>
-            <br></br>
+            <div><input type="text" name="cPassword" className="textbox" value={state.cPassword} onChange={handleChange} /><br /></div>
+            <br />
             <div><a className="switch" href="#" onClick={sendInfo}>{!loading ? "Save Profile" : "Loading..."}</a></div>
             <br />
             <br />
@@ -105,8 +105,5 @@ function Profile() {
         </div>
     );
 }
-
-
-
 
 export default Profile;

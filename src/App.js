@@ -28,7 +28,6 @@ function NavBar() {
     }
     else
     {
-        //TODO: Actually logout when this runs
         return (
             <header className="App-header">
                 <div className="App-header-left">

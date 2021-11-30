@@ -90,8 +90,8 @@ body {
 }
 
 .inputTitle {
-    /*text-align: center;*/
-    /*padding-left: 36.5%;*/
+    text-align: left;
+    margin-left: 37%;
     color: #2774AE;
 }
 

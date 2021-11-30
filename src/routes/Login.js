@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 
 function Login() {
     // TODO: this page should redirect to the dashboard if the user is authenticated
     const history = useHistory();
-
 
     const [state, setState] = useState({
         email: "",
@@ -22,15 +21,14 @@ function Login() {
     }
 
     const handleKeypress = e => {
-        if(e.key === "Enter") {
+        if (e.key === "Enter") {
             sendLogin();
         }
     }
 
-
     async function sendLogin() {
         setLoading(true);
-        await fetch("http://localhost:5000/login",{
+        await fetch("http://localhost:5000/login", {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -42,39 +40,39 @@ function Login() {
             referrerPolicy: 'no-referrer',
             body: JSON.stringify(state)
         })
-        .then(async response => {
-            if(response.ok) {
-                history.push("/dashboard")
-            } else {
-                return response.json()
-            }
-        })
-        .then(data => {
-            if(data) alert(data["error"])
-        })
+            .then(async response => {
+                if (response.ok) {
+                    history.push("/dashboard")
+                } else {
+                    return response.json()
+                }
+            })
+            .then(data => {
+                if (data) alert(data["error"])
+            })
         setLoading(false);
     }
 
     return (
-        
         <div onKeyPress={handleKeypress}>
             <h1>Login</h1>
             <div className="inputTitle">UCLA Email:</div>
-            <div><input type="email" id="email" name="email" className="textbox" placeholder="joebruin@ucla.edu" value={state.email} onChange = {handleChange}/></div>
-            <br></br>
+            <div><input type="email" id="email" name="email" className="textbox" placeholder="joebruin@ucla.edu" value={state.email} onChange={handleChange} /></div>
+            <br />
             <div className="inputTitle">Password:</div>
-            <div><input type="password" id="password" name="password" className="textbox" value={state.password} onChange = {handleChange}/></div>
+            <div><input type="password" id="password" name="password" className="textbox" value={state.password} onChange={handleChange} /></div>
+            <br/>
             <div>
-                <input type="checkbox" id="remember" name="remember" className="check"/>
+                <input type="checkbox" id="remember" name="remember" className="check" />
                 <label className="checktext">Remember Me</label>
             </div>
-            <br></br>
-            <br></br>
+            <br />
+            <br />
             <div><a className="switch" href="#" onClick={sendLogin}>{!loading ? "Login" : "Loading..."}</a></div>
-            <br></br>
-            <br></br>
+            <br />
+            <br />
             <div>New User?</div>
-            <br/>
+            <br />
             <div><Link to="/register">Register Here.</Link></div>
         </div>
     );
