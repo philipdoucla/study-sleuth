@@ -64,8 +64,11 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {fname: "", lname: "", major: null, residence: null, loggedIn: false};
+        
     }
-
+    componentWillMount(){
+        this.updateLoggedIn();
+    }
     updateLoggedIn = async () => {
         const that = this;
         await fetch('http://localhost:5000/me',{
