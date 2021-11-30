@@ -22,8 +22,10 @@
 }
 
 .AutoCompleteText li:hover {
-    background-color: cadetblue;
+    color: white;
+    background-color: #2774AE;
 }
+
 .AutoCompleteText ul::before {
     content: "";
 }
