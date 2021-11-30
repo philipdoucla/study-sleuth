@@ -9,12 +9,18 @@ const express = require("express");
 
 const routes = express.Router();
 routes.get('/group', authenticated, async (req, res) => {
-    const group = await req.dbUser.getGroup();
+    const group = await req.user.getGroup();
     if (!group) {
         return res.json({});
     }
     const groupmates = await group.getUsers();
-    return res.json(groupmates);
+    const groupmateObjs = [];
+    for (const groupmate of groupmates) {
+        const groupmateObj = groupmate.toJSON();
+        groupmateObj.overallRating = await groupmate.overallRating();
+        groupmateObjs.push(groupmateObj);
+    }
+    return res.json(groupmateObjs);
 });
 
 routes.post('/startSleuthing', authenticated, async (req, res) => {
@@ -67,24 +73,24 @@ routes.post('/startSleuthing', authenticated, async (req, res) => {
         }
     }
 
-    req.dbUser.preferredGroupSize = preferredGroupSize;
+    req.user.preferredGroupSize = preferredGroupSize;
 
     // if there are friends, form a partially complete group. otherwise, make them a "free agent"
     if (friendCodes.length) {
         const group = await Group.create({
             targetSize: preferredGroupSize
         });
-        req.dbUser.group = group.id;
+        req.user.group = group.id;
         for (const friend of friendUsers) {
             friend.group = group.id;
             friend.groupState = GroupStates.FoundGroup;
             await friend.save();
         }
         // TODO: pull in free agents right away
-        req.dbUser.groupState = GroupStates.FoundGroup;
+        req.user.groupState = GroupStates.FoundGroup;
     } else {
-        req.dbUser.groupState = GroupStates.InSearchPool;
-        req.dbUser.startedSearchAt = new Date();
+        req.user.groupState = GroupStates.InSearchPool;
+        req.user.startedSearchAt = new Date();
         // TODO: implement free-agent matchmaking algorithm!!!
         // first, look for suitable matches with this user's profile + group size setting, and hope there's the right
         // number of people.
@@ -92,12 +98,12 @@ routes.post('/startSleuthing', authenticated, async (req, res) => {
         // if there's no partial groups, leave them in the pool.
     }
 
-    await req.dbUser.save();
+    await req.user.save();
 
     return res.json({
-        groupState: req.dbUser.groupState,
-        group: req.dbUser.group,
-        preferredGroupSize: req.dbUser.preferredGroupSize
+        groupState: req.user.groupState,
+        group: req.user.group,
+        preferredGroupSize: req.user.preferredGroupSize
     });
 });
 

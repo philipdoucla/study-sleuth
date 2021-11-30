@@ -14,6 +14,9 @@ const db = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.D
 });
 
 
+class Rating extends Model {
+}
+
 class User extends Model {
     /**
      * Generates a user ID ("friend code") of the format XXX-XXX-XXX.
@@ -23,6 +26,24 @@ class User extends Model {
         // 5 bytes gives us 10 hex digits, we only need 9
         const digits = crypto.randomBytes(5).toString('hex').slice(0, -1);
         return digits.slice(0, 3) + '-' + digits.slice(3, 6) + '-' + digits.slice(6, 9);
+    }
+
+    /**
+     * Gives the mean rating, out of 5 stars, for this user.
+     * May return 0 if there are no ratings.
+     * @returns {Promise<number>}
+     */
+    async overallRating() {
+        const allRatings = await this.getRatings();
+        // avoid division by zero
+        if (allRatings.length === 0) {
+            return 0;
+        }
+        let total = 0;
+        for (const rating of allRatings) {
+            total += rating.value;
+        }
+        return total / allRatings.length;
     }
 }
 
@@ -114,12 +135,39 @@ User.init({
     tableName: 'users'
 });
 
+Rating.init({
+    target: {
+        type: DataTypes.STRING,
+        references: {
+            model: User,
+            key: 'id'
+        }
+    },
+    rater: {
+        type: DataTypes.STRING,
+        references: {
+            model: User,
+            key: 'id'
+        }
+    },
+    value: {
+        type: DataTypes.INTEGER
+    }
+}, {
+    sequelize: db,
+    modelName: 'Rating',
+    timestamps: false,
+    tableName: 'ratings'
+});
+
 Group.hasMany(User, { foreignKey: 'group' });
 User.belongsTo(Group, { foreignKey: 'group' });
+// only really care about ratings directed toward a user, not the ratings one user has given out
+User.hasMany(Rating, { foreignKey: 'target' });
 
 (async () => {
     await db.authenticate();
     console.log('Connected to db');
 })();
 
-module.exports = { Group, User };
+module.exports = { Group, Rating, User };

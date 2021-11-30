@@ -42,9 +42,18 @@ const isValidFriendCodeList = function (fcs) {
     return true;
 };
 
+/**
+ * Verifies that a rating (out of 5 stars) is in the valid range.
+ * @param {Number} value
+ */
+const isValidRating = function (value) {
+    return Number.isInteger(value) && value >= 1 && value <= 5;
+};
+
 module.exports = {
     isValidEmail,
     isValidFriendCodeList,
     isValidGroupSize,
-    isValidPassword
+    isValidPassword,
+    isValidRating
 };
