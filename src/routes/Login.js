@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
 
-function Login() {
+function Login({updateLoggedIn}) {
     // TODO: this page should redirect to the dashboard if the user is authenticated
     const history = useHistory();
 
@@ -42,11 +42,12 @@ function Login() {
             referrerPolicy: 'no-referrer',
             body: JSON.stringify(state)
         })
-        .then(async response => {
+        .then(response => {
+            updateLoggedIn();
             if(response.ok) {
-                history.push("/dashboard")
+                history.push("/dashboard");
             } else {
-                return response.json()
+                return response.json();
             }
         })
         .then(data => {
