@@ -92,9 +92,9 @@ function Profile() {
             <div className="inputTitle">Last Name:</div>
             <div><input type="text" name="lastName" className="textbox" placeholder="Bruin" value={state.lastName} onChange={handleChange} /><br /></div>
             <div className="inputTitle">Password:</div>
-            <div><input type="text" name="password" className="textbox" value={state.password} onChange={handleChange} /><br /></div>
+            <div><input type="password" name="password" className="textbox" value={state.password} onChange={handleChange} /><br /></div>
             <div className="inputTitle">Confirm Password:</div>
-            <div><input type="text" name="cPassword" className="textbox" value={state.cPassword} onChange={handleChange} /><br /></div>
+            <div><input type="password" name="cPassword" className="textbox" value={state.cPassword} onChange={handleChange} /><br /></div>
             <br />
             <div><a className="switch" href="#" onClick={sendInfo}>{!loading ? "Save Profile" : "Loading..."}</a></div>
             <br />
