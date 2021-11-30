@@ -63,24 +63,25 @@ class App extends React.Component {
     
     constructor(props) {
         super(props);
-        this.state = {loggedIn: false};
+        this.state = {fname: "", lname: "", major: null, residence: null, loggedIn: false};
     }
 
-    updateLoggedIn = () => {
+    updateLoggedIn = async () => {
         const that = this;
-        fetch('http://localhost:5000/me',{
+        await fetch('http://localhost:5000/me',{
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache',
             credentials: 'include',}
             )
-        .then(response => {
-            return response.ok
+        .then(async response => {
+            console.log(response);
+            that.setState({loggedIn: response.ok});
+            return response.json()
         })
-        .then( thing => {
-            that.setState({loggedIn: thing});
-        }
-        )
+        .then(data => {
+            console.log(data);
+        })
     }
     
     render() {
@@ -99,7 +100,7 @@ class App extends React.Component {
                             <Profile loggedIn={this.state.loggedIn}/>
                         </Route>
                         <Route path="/findgroup">
-                            <FindGroup loggedIn={this.state.loggeddIn}/>
+                            <FindGroup loggedIn={this.state.loggedIn}/>
                         </Route>
                         <Route path="/dashboard">
                             <Dashboard loggedIn={this.state.loggedIn}/>

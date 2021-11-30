@@ -41,15 +41,19 @@ function Login({updateLoggedIn}) {
             body: JSON.stringify(state)
         })
         .then(response => {
-            updateLoggedIn();
+            console.log(response)
+            updateLoggedIn()
+            .then( () => {
             if(response.ok) {
+                console.log(response.ok)
                 history.push("/dashboard");
             } else {
                 return response.json();
             }
-        })
-        .then(data => {
-            if(data) alert(data["error"])
+            })
+            .then(data => {
+                if(data) alert(data["error"])
+            })
         })
         setLoading(false);
     }

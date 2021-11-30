@@ -46,7 +46,6 @@ function Register() {
         })
         .then(async response => {
             if (response.ok) {
-                console.log("Registered!!!!!!!!")
                 await fetch("http://localhost:5000/login", {
                     method: 'POST',
                     mode: 'cors',
