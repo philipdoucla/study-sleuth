@@ -41,11 +41,9 @@ function Login({updateLoggedIn}) {
             body: JSON.stringify(state)
         })
         .then(response => {
-            console.log(response)
             updateLoggedIn()
             .then( () => {
             if(response.ok) {
-                console.log(response.ok)
                 history.push("/dashboard");
             } else {
                 return response.json();

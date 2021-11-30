@@ -75,7 +75,6 @@ class App extends React.Component {
             credentials: 'include',}
             )
         .then(async response => {
-            console.log(response);
             that.setState({loggedIn: response.ok});
             return response.json()
         })

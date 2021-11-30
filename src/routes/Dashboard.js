@@ -5,7 +5,6 @@ const Dashboard = ({loggedIn}) => {
     // the findgroup login must save account login
 
     if(!loggedIn) {
-        console.log(loggedIn);
         return (<Redirect to="login"/>)
     }
 
