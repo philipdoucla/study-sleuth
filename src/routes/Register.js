@@ -44,17 +44,30 @@ function Register() {
             referrerPolicy: 'no-referrer',
             body: JSON.stringify(state)
         })
-            .then(async response => {
-                if (response.ok) {
+        .then(async response => {
+            if (response.ok) {
+                console.log("Registered!!!!!!!!")
+                await fetch("http://localhost:5000/login", {
+                    method: 'POST',
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    credentials: 'include',
+                    headers: {
+                    'Content-Type': 'application/json'
+                    },
+                    redirect: 'follow',
+                    referrerPolicy: 'no-referrer',
+                    body: JSON.stringify({email: state.email, password: state.password})
+                }).then(()=>{
                     history.push("/profile")
-                } else {
-                    return response.json()
-                }
-            })
-            .then(data => {
-                if (data) alert(data["error"])
-            })
-        setLoading(false);
+                })
+            } else {
+                return response.json()
+            }
+        })
+        .then(data => {
+            if (data) alert(data["error"])
+        })
     }
 
     return (

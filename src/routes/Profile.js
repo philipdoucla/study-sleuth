@@ -1,8 +1,8 @@
 import { ClassSearch } from '../AutoComplete.js'
 import React, { useState } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 
-function Profile() {
+function Profile({isLogged}) {
     const history = useHistory();
 
     const [state, setState] = useState({
@@ -55,6 +55,11 @@ function Profile() {
                 if (data) alert(data["error"])
             })
         setLoading(false);
+    }
+
+
+    if(!isLogged) {
+        return <Redirect to="/login"/>
     }
 
     return (

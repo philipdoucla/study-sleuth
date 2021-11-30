@@ -1,8 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
-function Dashboard() {
+function Dashboard({isLogged}) {
     // TODO: needs to actually display data and junk
     // the findgroup login must save account login
+
+    if(!isLogged) {
+        return (<Redirect to="login"/>)
+    }
+
     return (
         // will need to display group data dynamically
         <div>
