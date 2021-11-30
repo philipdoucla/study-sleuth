@@ -4,6 +4,7 @@ function Dashboard() {
     // TODO: needs to actually display data and junk
     // the findgroup login must save account login
     return (
+        // will need to display group data dynamically
         <div>
             <h1>Dashboard</h1>
             <div className="inputTitle">Your Study Sleuth:</div>
