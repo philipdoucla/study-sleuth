@@ -15,9 +15,11 @@ function Dashboard() {
                 <li>Dhaval Vora</li>
             </ul>
         </div>
-        <br></br>
+        <br/>
+        <div><Link to="/profile" className="switch">Edit Your Profile</Link></div>   
+        <br/>
         <div><button type="button" className="switch">Rate Your Group</button></div>
-        <br></br>
+        <br/>
         <div><Link to="/findgroup" className="switch">Find New Group</Link></div>
         </div>
     );

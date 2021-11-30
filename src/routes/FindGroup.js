@@ -6,7 +6,7 @@ function FindGroup() {
     const history = useHistory();
     
     const [state, setState] = useState({
-        groupSize: "",
+        groupSize: 5,
         friendCode: "",
     });
 
