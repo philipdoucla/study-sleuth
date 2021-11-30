@@ -10,11 +10,9 @@ import logo from './study-sleuth-icon-banner.png';
 import React, { useState, useEffect } from 'react';
 
 class NavBar extends React.Component {
-    // TODO: add a title that changes depending on the current route
     constructor(props) {
         super(props);
     }
-    //if(useLocation().pathname !== "/dashboard")
 
     logout() {
         fetch("http:localhost:5000/logout",{
@@ -52,6 +50,7 @@ class NavBar extends React.Component {
                         </a>
                     </div>
                     <div className="App-header-right">
+                        <Link to="/profile">Profile</Link>
                         <a href="/login" onClick={this.logout()}>Logout</a>
                     </div>
                     </header>
@@ -97,7 +96,7 @@ class App extends React.Component {
                             <Register />
                         </Route>
                         <Route path="/profile">
-                            <Profile />
+                            <Profile loggedIn={this.state.loggedIn}/>
                         </Route>
                         <Route path="/findgroup">
                             <FindGroup />
