@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 
 function Dashboard() {
     // TODO: needs to actually display data and junk
+    // the links need to save login status or whatever
     return (
         <div>
         <h1>Dashboard</h1>
@@ -15,9 +16,9 @@ function Dashboard() {
                 <li>Dhaval Vora</li>
             </ul>
         </div>
-        <br></br>
+        <br/>
         <div><button type="button" className="switch">Rate Your Group</button></div>
-        <br></br>
+        <br/>
         <div><Link to="/findgroup" className="switch">Find New Group</Link></div>
         </div>
     );

@@ -13,7 +13,6 @@ function Home() {
                 <br/>
                 <br/>
                 <br/>
-                <br/>
                 <p className="description">Lost in your classes? Too lazy to work on assignments? Need to study for exams?</p>
                 <p className="description">Listen, school's a tough time, and working out that brain all by yourself is just extra weight on your shoulders.
                 So look no further than Study Sleuth, your all-encompassing web app for finding a study group at UCLA.
