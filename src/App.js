@@ -15,7 +15,7 @@ class NavBar extends React.Component {
     }
 
     logout() {
-        fetch("http:localhost:5000/logout",{
+        fetch("http://localhost:5000/logout",{
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -51,7 +51,7 @@ class NavBar extends React.Component {
                     </div>
                     <div className="App-header-right">
                         <Link to="/profile">Profile</Link>
-                        <a href="/login" onClick={this.logout()}>Logout</a>
+                        <a href="/login" onClick={this.logout}>Logout</a>
                     </div>
                     </header>
             );

@@ -6,13 +6,11 @@ const Profile = ({loggedIn}) => {
     const history = useHistory();
 
     const [state, setState] = useState({
-        class: "",
+        academicClass: "",
         major: "",
         residence: "",
         firstName: "",
         lastName: "",
-        password: "",
-        cPassword: "",
     });
 
     const [loading, setLoading] = useState(false);
@@ -32,7 +30,8 @@ const Profile = ({loggedIn}) => {
 
     async function sendInfo() {
         setLoading(true);
-        await fetch("http://localhost:5000/login", { // correctly implement fetch later
+        console.log(state);
+        await fetch("http://localhost:5000/profile", { // correctly implement fetch later
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -44,16 +43,17 @@ const Profile = ({loggedIn}) => {
             referrerPolicy: 'no-referrer',
             body: JSON.stringify(state)
         })
-            .then(async response => {
-                if (response.ok) {
-                    history.push("/dashboard")
-                } else {
-                    return response.json()
-                }
-            })
-            .then(data => {
-                if (data) alert(data["error"])
-            })
+        .then(async response => {
+            console.log(response);
+            if (response.ok) {
+                <Redirect to="profile"/>
+            } else {
+                return response.json()
+            }
+        })
+        .then(error => {
+            alert(error["error"]);
+        })
         setLoading(false);
     }
 
@@ -63,11 +63,11 @@ const Profile = ({loggedIn}) => {
     }
 
     return (
-        <div onKeyPress={handleKeypress}>
+        <form onKeyPress={handleKeypress} onSubmit={sendInfo}>
             <h1>Profile</h1>
             <div className="inputTitle">Classes:</div>
             <div>
-                <center name="class" value={state.class} onChange={handleChange}><ClassSearch /></center>
+                <center name="class" value={state.academicClass} onChange={handleChange}><ClassSearch /></center>
             </div>
             <div className="inputTitle">Major:</div>
             <div>
@@ -97,13 +97,13 @@ const Profile = ({loggedIn}) => {
             <div className="inputTitle">Last Name:</div>
             <div><input type="text" name="lastName" className="textbox" placeholder="Bruin" value={state.lastName} onChange={handleChange} /><br /></div>
             <br />
-            <div><a className="switch" href="#" onClick={sendInfo}>{!loading ? "Save Profile" : "Loading..."}</a></div>
+            <div><input className="switch" type="submit" value={!loading ? "Save Profile" : "Loading..."}/></div>
             <br />
             <br />
             <br />
             <br />
             <br />
-        </div>
+        </form>
     );
 }
 
