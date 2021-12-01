@@ -1,6 +1,6 @@
 import { Link, Redirect } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-
+import ReactStars from 'react-rating-stars-component'
 
 class Dashboard extends React.Component {
     // TODO: needs to actually display data and junk
@@ -12,6 +12,7 @@ class Dashboard extends React.Component {
             groupSize: 0,
             memberName: [],
             memberID: [],
+            showRating: false
         };
     }
 
@@ -59,6 +60,26 @@ class Dashboard extends React.Component {
         
       }
 
+    ratingButton = () => {
+        console.log(this.state.showRating);
+        if(!this.state.showRating) {
+            return (<button type="button" className="switch" onClick={() => {this.setState({showRating: true})}}>Rate Your Group</button>);
+        }
+        return (<button type="button" className="switch" onClick={() => {this.setState({showRating: false})}}>Save</button>);
+    }
+    saveRatings = () => {
+        console.log("hi");
+    }
+
+    groupMember = (memberName, showRating) => {
+        return (
+            <li>{memberName}{showRating ? <ReactStars count={5} onChange={this.updateRating} size={24} activeColor="#ffd700"/> : null}</li>
+        )
+    }    
+
+    updateRating = (newRating) => {
+        console.log("Hi: " + newRating);
+    }
     render(){
         const {loggedIn} = this.props;
 
@@ -67,7 +88,6 @@ class Dashboard extends React.Component {
         }
 
         return(
-            console.log('render' + this.state.groupSize + this.state.memberName[0]),
             // will need to display group data dynamically
             <div>
                 <h1>Dashboard</h1>
@@ -76,13 +96,14 @@ class Dashboard extends React.Component {
                     <ul id="memberList" className="grouplist">
     
                     {(this.state.memberName || []).map(item => (
-                     <li key={item}>{item}</li>
+                     //<li key={item}>{item}</li>
+                     <li key={item}>{this.groupMember(item, this.state.showRating)}</li>
                     ))}
 
                     </ul>
                 </div>
                 <br />
-                <div><button type="button" className="switch">Rate Your Group</button></div>
+                <div>{this.ratingButton()}</div>
                 <br />
                 <div><Link to="/findgroup" className="switch">Find New Group</Link></div>
             </div>
@@ -91,3 +112,14 @@ class Dashboard extends React.Component {
 }
 
 export default Dashboard;
+
+
+/*
+
+
+    
+
+    
+
+
+*/

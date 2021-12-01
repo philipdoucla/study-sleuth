@@ -67,6 +67,7 @@ body {
 	letter-spacing: 1px;
 	text-transform: uppercase;
     text-decoration: none;
+    cursor: pointer;
 	/*transition: transform 80ms*/
 }
 
@@ -119,6 +120,7 @@ h1 {
 
 li {
     margin: auto;
+    list-style-type: none;
     padding-right: 0%;
     width: 8%;
 }
