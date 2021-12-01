@@ -75,7 +75,8 @@ routes.post('/startSleuthing', authenticated, async (req, res) => {
     // if there are friends, form a partially complete group. otherwise, make them a "free agent"
     if (friendCodes.length) {
         const group = await Group.create({
-            targetSize: preferredGroupSize
+            targetSize: preferredGroupSize,
+            creator: req.user.id
         });
         req.user.group = group.id;
         for (const friend of friendUsers) {
