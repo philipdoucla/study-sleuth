@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const dotenv = require('dotenv');
+const { GroupStates } = require('../shared/constants');
 const Sequelize = require('sequelize');
 const path = require('path');
 const { DataTypes, Model } = require("sequelize");
@@ -51,15 +52,84 @@ class User extends Model {
         userObj.overallRating = await this.overallRating();
         return userObj;
     }
+
+    /**
+     * Queries for compatible users to form a new group, or complete an existing group, when the user is already in one.
+     * Attempts to honor all parties' group size preferences, but is more flexible when completing a group.
+     * May return fewer users than the ideal case.
+     * @returns {Promise<User[]>}
+     */
+    async findCompatibleUsers() {
+        let remainingGroupSize = this.preferredGroupSize - 1;
+        if (this.group) {
+            const group = await this.getGroup();
+            remainingGroupSize = group.targetSize - (await group.countUsers());
+        }
+        let query = "SELECT *, ABS(residence - $1) AS distance, ABS(preferred_group_size - $2) AS dsize, " +
+            "ABS(major - $3) AS dmajor FROM users " +
+            "WHERE id != $4 AND academic_class = $5 AND group_state = $6 ";
+        // when completing a partial group, we don't need to strictly respect everyone's group size preference
+        if (!this.group) {
+            query += "AND preferred_group_size = $2 ";
+        }
+        query += "ORDER BY distance ASC, dsize ASC, dmajor ASC, started_search_at ASC LIMIT $7";
+        const matchingUsers = await db.query(query, {
+            bind: [
+                this.residence,
+                this.preferredGroupSize,
+                this.major,
+                this.id,
+                this.academicClass,
+                GroupStates.InSearchPool,
+                remainingGroupSize
+            ],
+            type: Sequelize.QueryTypes.SELECT,
+            model: User,
+            mapToModel: true
+        });
+        return matchingUsers.slice(0, remainingGroupSize);
+    }
+
+    /**
+     * Queries for compatible incomplete groups to add a free agent to.
+     * It is recommended to try findCompatibleUsers() before this method, since it produces better matches with respect
+     * to peoples' preferences.
+     */
+    async findCompatibleGroup() {
+        const results = await db.query(
+            "SELECT groups.*, target_size - COUNT(users.*) AS members_needed FROM groups " +
+            "INNER JOIN users ON users.group = groups.id " +
+            "WHERE (SELECT academic_class FROM users WHERE users.id = groups.creator) = $1 " +
+            "GROUP BY groups.id ORDER BY members_needed DESC LIMIT 1", {
+            bind: [this.academicClass],
+            type: Sequelize.QueryTypes.SELECT,
+            model: Group,
+            mapToModel: true
+        });
+        if (!results.length) {
+            return null;
+        } else {
+            return results[0];
+        }
+    }
 }
 
 class Group extends Model {
-
+    /**
+     * Returns whether this group is complete.
+     * Incomplete groups may occur if we have friends in our group, but are awaiting free agents.
+     * Such groups are hidden from the end-user.
+     * @returns {Promise<boolean>}
+     */
+    async complete() {
+        return (await this.countUsers()) === this.targetSize;
+    }
 }
 
 Group.init({
     id: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         allowNull: false,
         unique: true,
         primaryKey: true
@@ -170,6 +240,8 @@ Rating.init({
 
 Group.hasMany(User, { foreignKey: 'group' });
 User.belongsTo(Group, { foreignKey: 'group' });
+// owner
+Group.belongsTo(User, { foreignKey: 'creator' });
 // only really care about ratings directed toward a user, not the ratings one user has given out
 User.hasMany(Rating, { foreignKey: 'target' });
 

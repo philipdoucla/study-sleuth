@@ -11,13 +11,19 @@ const routes = express.Router();
 routes.get('/group', authenticated, async (req, res) => {
     const group = await req.user.getGroup();
     if (!group) {
-        return res.json({});
+        return res.json({
+            status: 'none'
+        });
     }
     const groupmates = await group.getUsers();
     const groupmateObjs = await Promise.all(
         groupmates.map(g => g.toJSON())
     );
-    return res.json(groupmateObjs);
+    const complete = await group.complete();
+    return res.json({
+        status: complete ? 'complete' : 'incomplete',
+        groupmates: groupmateObjs
+    });
 });
 
 routes.post('/startSleuthing', authenticated, async (req, res) => {
@@ -71,6 +77,8 @@ routes.post('/startSleuthing', authenticated, async (req, res) => {
     }
 
     req.user.preferredGroupSize = preferredGroupSize;
+    await req.user.save();
+    let status = 'unknown';
 
     // if there are friends, form a partially complete group. otherwise, make them a "free agent"
     if (friendCodes.length) {
@@ -84,24 +92,92 @@ routes.post('/startSleuthing', authenticated, async (req, res) => {
             friend.groupState = GroupStates.FoundGroup;
             await friend.save();
         }
-        // TODO: pull in free agents right away
         req.user.groupState = GroupStates.FoundGroup;
+        await req.user.save();
+        // pull in free agents right away, if possible
+        const freeAgents = await req.user.findCompatibleUsers();
+        for (const newUser of freeAgents) {
+            newUser.group = group.id;
+            newUser.groupState = GroupStates.FoundGroup;
+            await newUser.save();
+        }
+        if (await group.complete()) {
+            status = 'created_complete_group';
+        } else {
+            status = 'created_incomplete_group';
+        }
     } else {
         req.user.groupState = GroupStates.InSearchPool;
         req.user.startedSearchAt = new Date();
-        // TODO: implement free-agent matchmaking algorithm!!!
+        // free-agent matchmaking algorithm:
         // first, look for suitable matches with this user's profile + group size setting, and hope there's the right
         // number of people.
-        // if not found, just throw them in the oldest partial group.
-        // if there's no partial groups, leave them in the pool.
+        const compatibleUsers = await req.user.findCompatibleUsers();
+        if (compatibleUsers.length + 1 >= preferredGroupSize) {
+            // in the ideal case where we found enough other free agents, create a brand new group
+            const group = await Group.create({
+                targetSize: preferredGroupSize,
+                creator: req.user.id
+            });
+            req.user.group = group.id;
+            for (const newUser of compatibleUsers) {
+                newUser.group = group.id;
+                newUser.groupState = GroupStates.FoundGroup;
+                await newUser.save();
+            }
+            req.user.groupState = GroupStates.FoundGroup;
+            await req.user.save();
+            status = 'created_complete_group';
+        } else {
+            // if not found, just throw this user in the best partial group.
+            const compatibleGroup = await req.user.findCompatibleGroup();
+            if (compatibleGroup) {
+                req.user.group = compatibleGroup.id;
+                req.user.groupState = GroupStates.FoundGroup;
+                await req.user.save();
+                if (await compatibleGroup.complete()) {
+                    status = 'joined_complete_group';
+                } else {
+                    status = 'joined_incomplete_group';
+                }
+            } else {
+                // if there's no partial groups, leave them in the pool.
+                status = 'in_pool';
+            }
+        }
     }
 
     await req.user.save();
 
     return res.json({
+        status,
         groupState: req.user.groupState,
         group: req.user.group,
         preferredGroupSize: req.user.preferredGroupSize
+    });
+});
+
+routes.post('/leaveGroup', authenticated, async (req, res) => {
+    if (!req.user.group) {
+        return res.status(400).json({
+            error: 'You are not in a group.'
+        });
+    }
+    // disband the group if person is the creator
+    const grp = await req.user.getGroup();
+    if (grp.creator === req.user.id) {
+        await grp.destroy();
+        req.user.groupState = GroupStates.NotSearching;
+        await req.user.save();
+        return res.json({
+            status: 'disbanded'
+        });
+    }
+    req.user.groupState = GroupStates.NotSearching;
+    req.user.group = null;
+    await req.user.save();
+    return res.json({
+        status: 'left'
     });
 });
 
