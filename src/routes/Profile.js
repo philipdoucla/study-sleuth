@@ -1,8 +1,8 @@
 import { ClassSearch } from '../AutoComplete.js'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, Redirect } from "react-router-dom";
 
-const Profile = ({ loggedIn }) => {
+const Profile = ({ profile }) => {
     const history = useHistory();
 
     const [state, setState] = useState({
@@ -30,7 +30,7 @@ const Profile = ({ loggedIn }) => {
 
     async function sendInfo() {
         setLoading(true);
-        await fetch("http://localhost:5000/login", { // correctly implement fetch later
+        await fetch("http://localhost:5000/profile", { // correctly implement fetch later
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -64,9 +64,10 @@ const Profile = ({ loggedIn }) => {
 
     const handlePassword = (e) => {
         setPassword({
-            ...state,
+            ...pw,
             [e.target.name]: e.target.value
         });
+        
     }
 
     async function sendPassword() {
@@ -102,8 +103,21 @@ const Profile = ({ loggedIn }) => {
         }
     }
 
+    useEffect(() => {
+        let majors = ["CS", "CSE", "CE"]
+        setState({...state,
+            class: profile.academicClass,
+            major: majors[profile.major],
+            residence: profile.residence,
+            firstName: profile.fname,
+            lastName: profile.lname,
+        })
+    }, []);
+
+
+
     // code for display stuff starts here
-    if (!loggedIn) {
+    if (!profile.loggedIn) {
         return <Redirect to="/login" />
     }
 
@@ -113,7 +127,7 @@ const Profile = ({ loggedIn }) => {
                 <h1>Profile</h1>
                 <div className="inputTitle">Classes:</div>
                 <div>
-                    <center name="class" value={state.class} onChange={handleChange}><ClassSearch /></center>
+                    <center name="class" value={{value: state.class, label: state.class}} onChange={handleChange}><ClassSearch text={profile.academicClass}/></center>
                 </div>
                 <div className="inputTitle">Major:</div>
                 <div>

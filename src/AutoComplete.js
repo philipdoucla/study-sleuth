@@ -2,12 +2,12 @@ import React from 'react';
 import './AutoCompleteText.css';
 
 class AutoComplete extends React.Component {
-    constructor() {
+    constructor(text) {
         super();
         this.state = {
             suggestions: [],
             autocomplete: [],
-            text : '',
+            text : text.text,
         };
     }
     componentWillMount = () => {
@@ -61,6 +61,12 @@ class AutoComplete extends React.Component {
 
 
 class ClassSearch extends AutoComplete {
+
+
+    constructor(text) {
+        super(text);
+
+    }
     componentWillMount = async () => {
         let classes_list = [];
         await fetch("https://api.ucla.edu/sis/publicapis/course/getallcourses")
