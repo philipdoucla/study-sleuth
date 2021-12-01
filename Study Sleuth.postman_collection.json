@@ -144,7 +144,8 @@
 							"key": "friendCodes[]",
 							"value": "dfc-aa7-571",
 							"description": "array; use multiple friendCodes[] keys",
-							"type": "text"
+							"type": "text",
+							"disabled": true
 						}
 					]
 				},
@@ -308,6 +309,25 @@
 					"port": "5000",
 					"path": [
 						"password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Leave / Disband Group",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/leaveGroup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"leaveGroup"
 					]
 				}
 			},
