@@ -31,7 +31,6 @@ class Dashboard extends React.Component {
         .then((response) => response.json())
         .then(data => {
             this.setState({groupSize: data.groupmates.length})
-            console.log(this.state.groupSize)
             
             let tempMemberName = data.groupmates.map(function(user) {
                 return user.firstName;
@@ -50,8 +49,6 @@ class Dashboard extends React.Component {
             })
             this.setState({ memberID: [...this.state.memberID, ...tempMemberID ] })
 
-            console.log(this.state.memberName)
-            console.log(this.state.memberID)
         })
         .then(
             console.log('updated?')
