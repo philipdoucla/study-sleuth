@@ -22,6 +22,7 @@ class NavBar extends React.Component {
             cache: 'no-cache',
             credentials: 'include',
         })
+        this.props.updateLoggedIn();
     }
 
     render() {
@@ -92,7 +93,7 @@ class App extends React.Component {
         return (
             <BrowserRouter>
                 <div className="App">
-                    <NavBar loggedIn={this.state.loggedIn}/>
+                    <NavBar loggedIn={this.state.loggedIn} updateLoggedIn={this.updateLoggedIn}/>
                     <Switch>
                         <Route path="/login">
                             <Login updateLoggedIn={this.updateLoggedIn}/>
