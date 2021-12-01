@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 
-function Login({updateLoggedIn}) {
+function Login({loggedIn, updateLoggedIn}) {
     // TODO: this page should redirect to the dashboard if the user is authenticated
     const history = useHistory();
 
@@ -54,6 +54,10 @@ function Login({updateLoggedIn}) {
             })
         })
         setLoading(false);
+    }
+
+    if(loggedIn) {
+        return (<Redirect to='/dashboard'/>)
     }
 
     return (
