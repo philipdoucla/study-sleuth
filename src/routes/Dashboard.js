@@ -16,7 +16,7 @@ const Dashboard = ({loggedIn}) => {
             <div>
                 <ul className="grouplist">
                     <li>Philip Do</li>
-                    <li>Derek Le</li>
+                    <li>Derek Lee</li>
                     <li>Vinh Nguyen</li>
                     <li>James Shiffer</li>
                     <li>Dhaval Vora</li>

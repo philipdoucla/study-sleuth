@@ -15,12 +15,14 @@ class NavBar extends React.Component {
     }
 
     logout() {
-        fetch("http:localhost:5000/logout",{
+        console.log("Logged out");
+        fetch("http://localhost:5000/logout",{
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
             credentials: 'include',
         })
+        this.props.updateLoggedIn();
     }
 
     render() {
@@ -50,8 +52,9 @@ class NavBar extends React.Component {
                         </a>
                     </div>
                     <div className="App-header-right">
+                        <Link to="/dashboard">Dashboard</Link>
                         <Link to="/profile">Profile</Link>
-                        <a href="/login" onClick={this.logout()}>Logout</a>
+                        <a href="/login" onClick={this.logout}>Logout</a>
                     </div>
                     </header>
             );
@@ -90,7 +93,7 @@ class App extends React.Component {
         return (
             <BrowserRouter>
                 <div className="App">
-                    <NavBar loggedIn={this.state.loggedIn}/>
+                    <NavBar loggedIn={this.state.loggedIn} updateLoggedIn={this.updateLoggedIn}/>
                     <Switch>
                         <Route path="/login">
                             <Login updateLoggedIn={this.updateLoggedIn}/>
