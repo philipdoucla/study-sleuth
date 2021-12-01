@@ -6,8 +6,8 @@
 module.exports = {
     Majors: Object.freeze({
         "Computer Science": 0,
-        "Computer Engineering": 1,
-        "Computer Science and Engineering": 2
+        "Computer Science and Engineering": 1,
+        "Computer Engineering": 2
     }),
     /**
      * We use residence hall categories to approximate the
