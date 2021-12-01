@@ -59,7 +59,7 @@ class Dashboard extends React.Component {
           })
         
       }
-
+      
     ratingButton = () => {
         console.log(this.state.showRating);
         if(!this.state.showRating) {
