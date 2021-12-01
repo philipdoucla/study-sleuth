@@ -106,7 +106,7 @@ class App extends React.Component {
                     <NavBar loggedIn={this.state.loggedIn} updateLoggedIn={this.updateLoggedIn}/>
                     <Switch>
                         <Route path="/login">
-                            <Login updateLoggedIn={this.updateLoggedIn}/>
+                            <Login loggedIn={this.state.loggedIn} updateLoggedIn={this.updateLoggedIn}/>
                         </Route>
                         <Route path="/register">
                             <Register />
