@@ -30,7 +30,6 @@ class Dashboard extends React.Component {
         })
         .then((response) => response.json())
         .then(data => {
-            //console.log(data[1].firstName)
             this.setState({groupSize: data.groupmates.length})
             console.log(this.state.groupSize)
             
@@ -38,6 +37,13 @@ class Dashboard extends React.Component {
                 return user.firstName;
             })
             this.setState({ memberName: [...this.state.memberName, ...tempMemberName ] })
+
+            let tempMemberLName = data.groupmates.map(function(user) {
+                return user.lastName;
+            })
+            for(let i = 0; i < this.state.groupSize; i++) {
+                this.state.memberName[i] = ( [this.state.memberName[i], tempMemberLName[i]].join(' '))
+            }
 
             let tempMemberID = data.groupmates.map(function(user) {
                 return user.id;
