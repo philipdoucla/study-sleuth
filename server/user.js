@@ -11,9 +11,7 @@ const express = require("express");
 const routes = express.Router();
 
 routes.get('/me', authenticated, async (req, res) => {
-    const userObj = req.user.toJSON();
-    userObj.overallRating = await req.user.overallRating();
-    return res.status(200).json(userObj);
+    return res.status(200).json(await req.user.toJSON());
 });
 
 routes.post('/password', authenticated, async (req, res) => {
@@ -90,7 +88,7 @@ routes.post('/profile', authenticated, async (req, res) => {
     });
 
     await req.user.save();
-    return res.status(200).json(req.user.toJSON());
+    return res.status(200).json(await req.user.toJSON());
 });
 
 routes.post('/rateUser', authenticated, async function (req, res) {

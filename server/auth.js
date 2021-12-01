@@ -66,9 +66,7 @@ routes.post('/login', (req, res, next) => {
             if (err) {
                 return next(err);
             }
-            const userObj = user.toJSON();
-            userObj.overallRating = await user.overallRating();
-            return res.json(userObj);
+            return res.json(await user.toJSON());
         });
     })(req, res, next)
 });
@@ -129,7 +127,7 @@ routes.post('/register', async (req, res) => {
             firstName,
             lastName
         });
-        return res.status(200).json(newUser.toJSON());
+        return res.status(200).json(await newUser.toJSON());
     } catch (error) {
         return res.status(500).json({ error });
     }

@@ -45,6 +45,12 @@ class User extends Model {
         }
         return total / allRatings.length;
     }
+
+    async toJSON() {
+        const userObj = super.toJSON();
+        userObj.overallRating = await this.overallRating();
+        return userObj;
+    }
 }
 
 class Group extends Model {

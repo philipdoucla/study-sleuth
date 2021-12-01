@@ -14,12 +14,9 @@ routes.get('/group', authenticated, async (req, res) => {
         return res.json({});
     }
     const groupmates = await group.getUsers();
-    const groupmateObjs = [];
-    for (const groupmate of groupmates) {
-        const groupmateObj = groupmate.toJSON();
-        groupmateObj.overallRating = await groupmate.overallRating();
-        groupmateObjs.push(groupmateObj);
-    }
+    const groupmateObjs = await Promise.all(
+        groupmates.map(g => g.toJSON())
+    );
     return res.json(groupmateObjs);
 });
 
