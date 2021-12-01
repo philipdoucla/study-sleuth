@@ -17,7 +17,7 @@ const Dashboard = ({loggedIn}) => {
 
     const groupMember = (memberName, showRating) => {
         return (
-            <li>{memberName}{showRating ? <ReactStars count={5} onChange={updateRating} size={24} activeColor="#ffd700"/> : null}</li>
+            <li className="ratingstar">{memberName}{showRating ? <ReactStars count={5} onChange={updateRating} size={24} activeColor="#ffd700"/> : null}</li>
         )
     }
 

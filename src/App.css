@@ -114,6 +114,10 @@ body {
     text-align: left;
 }
 
+.ratingstar {
+    width: 8.5%;
+}
+
 h1 {
     color: #2774AE;
 }
