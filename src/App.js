@@ -51,6 +51,7 @@ class NavBar extends React.Component {
                         </a>
                     </div>
                     <div className="App-header-right">
+                        <Link to="/dashboard">Dashboard</Link>
                         <Link to="/profile">Profile</Link>
                         <a href="/login" onClick={this.logout}>Logout</a>
                     </div>
