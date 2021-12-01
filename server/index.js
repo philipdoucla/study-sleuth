@@ -1,6 +1,6 @@
 const AuthController = require('./auth.js');
 const GroupController = require('./group.js');
-const ProfileController = require('./profile.js');
+const UserController = require('./user.js');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -18,7 +18,7 @@ app.use(cors({
     credentials: true
 }))
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(session({
@@ -33,7 +33,7 @@ app.use(passport.session());
 AuthController.initPassport();
 app.use(AuthController.routes);
 app.use(GroupController.routes);
-app.use(ProfileController.routes);
+app.use(UserController.routes);
 
 app.get('/', (req, res) => {
     res.send('hello world');

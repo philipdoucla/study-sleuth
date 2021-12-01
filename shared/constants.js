@@ -6,14 +6,19 @@
 module.exports = {
     Majors: Object.freeze({
         "Computer Science": 0,
-        "Computer Engineering": 1,
-        "Computer Science and Engineering": 2
+        "Computer Science and Engineering": 1,
+        "Computer Engineering": 2
     }),
+    /**
+     * We use residence hall categories to approximate the
+     * distance between students' dorms. The ordering is such that
+     * subtraction does a good enough job.
+     */
     ResidenceHalls: Object.freeze({
-        "De Neve": 0,
-        "Hedrick": 1,
-        "Rieber": 2,
-        "Sproul/Sunset Village": 3
+        "De Neve": 0,   // includes Dykstra
+        "Sproul": 1,    // includes Sunset Village
+        "Rieber": 2,    // includes Olympic/Centennial
+        "Hedrick": 3    // includes off-campus apts
     }),
     GroupStates: Object.freeze({
         NotSearching: 0,
