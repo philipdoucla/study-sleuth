@@ -126,15 +126,15 @@ const Profile = ({ loggedIn }) => {
                 <div className="inputTitle">Residence:</div>
                 <div>
                     <select name="residence" className="selector" value={state.residence} onChange={handleChange}>
-                        <option value="centennial">Centennial Hall</option>
-                        <option value="de_neve">De Neve Plaza</option>
-                        <option value="dykstra">Dykstra Hall</option>
-                        <option value="hedrick">Hedrick Court</option>
-                        <option value="olympic">Olympic Hall</option>
-                        <option value="rieber">Rieber Court</option>
-                        <option value="sproul">Sproul Plaza</option>
-                        <option value="sunset">Sunset Village</option>
-                        <option value="appartments">Appartments</option>
+                        <option value="Rieber">Centennial Hall</option>
+                        <option value="De Neve">De Neve Plaza</option>
+                        <option value="De Neve">Dykstra Hall</option>
+                        <option value="Hedrick">Hedrick Court</option>
+                        <option value="Rieber">Olympic Hall</option>
+                        <option value="Rieber">Rieber Court</option>
+                        <option value="Sproul">Sproul Plaza</option>
+                        <option value="Sproul">Sunset Village</option>
+                        <option value="Hedrick">Appartments</option>
                     </select>
                 </div>
                 <h1>Account</h1>
@@ -162,27 +162,6 @@ const Profile = ({ loggedIn }) => {
                 <br />
                 <br />
             </div>
-            <div className="inputTitle">Residence:</div>
-            <div>
-                <select name="residence" className="selector" value={state.residence} onChange={handleChange}>
-                    <option value="Rieber">Centennial Hall</option>
-                    <option value="De Neve">De Neve Plaza</option>
-                    <option value="De Neve">Dykstra Hall</option>
-                    <option value="Hedrick">Hedrick Court</option>
-                    <option value="Rieber">Olympic Hall</option>
-                    <option value="Rieber">Rieber Court</option>
-                    <option value="Sproul">Sproul Plaza</option>
-                    <option value="Sproul">Sunset Village</option>
-                    <option value="Hedrick">Appartments</option>
-                </select>
-            </div>
-            <h1>Account</h1>
-            <div className="inputTitle">First Name:</div>
-            <div><input type="text" name="firstName" className="textbox" placeholder="Joe" value={state.firstName} onChange={handleChange} /><br /></div>
-            <div className="inputTitle">Last Name:</div>
-            <div><input type="text" name="lastName" className="textbox" placeholder="Bruin" value={state.lastName} onChange={handleChange} /><br /></div>
-            <br />
-            <div><a className="switch" href="#" onClick={sendInfo}>{!loading ? "Save Profile" : "Loading..."}</a></div>
             <br />
             <br />
             <br />
