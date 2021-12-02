@@ -38,7 +38,7 @@ const Profile = ({ profile }) => {
 
     async function sendInfo() {
         setLoading(true);
-        await fetch("http://localhost:5000/profile", { // correctly implement fetch later
+        await fetch("http://localhost:5000/profile", { 
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -77,7 +77,7 @@ const Profile = ({ profile }) => {
 
     async function sendPassword() {
         setLoading(true);
-        await fetch("http://localhost:5000/password", { // correctly implement fetch later
+        await fetch("http://localhost:5000/password", { 
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -115,11 +115,12 @@ const Profile = ({ profile }) => {
         }
 
 
-        let majors = ["Computer Science", "Computer Science and Engineering", "Computer Engineering"]
+        let majors = ["Computer Science", "Computer Science and Engineering", "Computer Engineering"];
+        let residence = ["De Neve", "Sproul", "Rieber", "Hedrick"];
         setState({...state,
             academicClass: profile.academicClass,
             major: majors[profile.major],
-            residence: "Rieber",
+            residence: residence[profile.residence],
             firstName: profile.fname,
             lastName: profile.lname,
         })
