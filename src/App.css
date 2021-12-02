@@ -67,6 +67,7 @@ body {
 	letter-spacing: 1px;
 	text-transform: uppercase;
     text-decoration: none;
+    cursor: pointer;
 	/*transition: transform 80ms*/
 }
 
@@ -122,12 +123,19 @@ body {
     text-align: left;
 }
 
+.ratingstar {
+    text-align: left;
+    margin-left: -11%;
+    width: 120%;
+}
+
 h1 {
     color: #2774AE;
 }
 
 li {
     margin: auto;
+    list-style-type: none;
     padding-right: 0%;
     width: 8%;
 }
