@@ -141,6 +141,8 @@ const Profile = ({ profile }) => {
                 <div>
                     <center><ClassSearch text={profile.academicClass} updateClass={updateClass}/></center>
                 </div>
+                <div className="inputTitle">My Friend Code:</div>
+                <div><input readOnly="true" type="text" name="myCode" className="textbox" defaultValue={profile.id}/><br /></div>
                 <div className="inputTitle">Major:</div>
                 <div>
                     <select name="major" className="selector" value={state.major} onChange={handleChange}>
