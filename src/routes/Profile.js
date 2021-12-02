@@ -1,26 +1,34 @@
 import { ClassSearch } from '../AutoComplete.js'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback,useRef } from 'react';
 import { useHistory, Redirect } from "react-router-dom";
 
 const Profile = ({ profile }) => {
     const history = useHistory();
 
     const [state, setState] = useState({
-        class: "",
+        academicClass: "",
         major: "",
         residence: "",
         firstName: "",
         lastName: "",
     });
+    const stateRef = useRef({});
+    stateRef.current = state
 
     const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         setState({
-            ...state,
+            ...stateRef.current,
             [e.target.name]: e.target.value
         });
     }
+
+    const updateClass = useCallback((newClass) => {
+        setState({...stateRef.current,
+            academicClass: newClass
+        });
+    }, []);
 
     const handleKeypress1 = e => {
         if (e.key === "Enter") {
@@ -40,19 +48,16 @@ const Profile = ({ profile }) => {
             },
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
-            body: JSON.stringify(state)
+            body: JSON.stringify(stateRef.current)
         })
-            .then(async response => {
-                if (response.ok) {
-                    history.push("/dashboard")
-                } else {
-                    return response.json()
-                }
-            })
-            .then(data => {
-                if (data) alert(data["error"])
-            })
-        setLoading(false);
+        .then(async response => {
+            if (response.ok) {
+                history.push("/profile");
+            } else {
+                alert(response.json()["error"])
+            }
+        })
+        setLoading(false); 
     }
 
     // code for password changes starts here
@@ -104,11 +109,17 @@ const Profile = ({ profile }) => {
     }
 
     useEffect(() => {
-        let majors = ["CS", "CSE", "CE"]
+
+        if(!profile) {
+            setState({...state})
+        }
+
+
+        let majors = ["Computer Science", "Computer Science and Engineering", "Computer Engineering"]
         setState({...state,
-            class: profile.academicClass,
+            academicClass: profile.academicClass,
             major: majors[profile.major],
-            residence: profile.residence,
+            residence: "Rieber",
             firstName: profile.fname,
             lastName: profile.lname,
         })
@@ -127,14 +138,14 @@ const Profile = ({ profile }) => {
                 <h1>Profile</h1>
                 <div className="inputTitle">Classes:</div>
                 <div>
-                    <center name="class" value={{value: state.class, label: state.class}} onChange={handleChange}><ClassSearch text={profile.academicClass}/></center>
+                    <center><ClassSearch text={profile.academicClass} updateClass={updateClass}/></center>
                 </div>
                 <div className="inputTitle">Major:</div>
                 <div>
                     <select name="major" className="selector" value={state.major} onChange={handleChange}>
-                        <option value="CS">Computer Science</option>
-                        <option value="CE">Computer Engineering</option>
-                        <option value="CSE">Computer Science and Engineering</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Computer Engineering">Computer Engineering</option>
+                        <option value="Computer Science and Engineering">Computer Science and Engineering</option>
                     </select>
                 </div>
                 <div className="inputTitle">Residence:</div>
@@ -184,5 +195,4 @@ const Profile = ({ profile }) => {
         </div>
     );
 }
-
 export default Profile;
