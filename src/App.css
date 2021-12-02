@@ -115,8 +115,9 @@ body {
 }
 
 .ratingstar {
-    padding-right: 1%;
-    width: 8.5%;
+    text-align: left;
+    margin-left: -1%;
+    width: 100%;
 }
 
 h1 {

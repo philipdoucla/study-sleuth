@@ -97,7 +97,7 @@ class Dashboard extends React.Component {
     
                     {(this.state.memberName || []).map(item => (
                      //<li key={item}>{item}</li>
-                     <li key={item}>{this.groupMember(item, this.state.showRating)}</li>
+                     <li className="ratingstar" key={item}>{this.groupMember(item, this.state.showRating)}</li>
                     ))}
 
                     </ul>
