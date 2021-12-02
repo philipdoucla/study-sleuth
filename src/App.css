@@ -63,12 +63,12 @@ body {
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
-	padding: 12px 45px;
+	padding: 12px 41px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
     text-decoration: none;
     cursor: pointer;
-	/*transition: transform 80ms*/
+	width: 15%;
 }
 
 .textbox {
@@ -108,6 +108,7 @@ body {
 .GroupTitle {
     text-align: center;
     color: #2774AE;
+    font-size: 20px;
 }
 
 .selector {
