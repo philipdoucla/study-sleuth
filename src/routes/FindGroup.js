@@ -83,7 +83,7 @@ function FindGroup({loggedIn}) {
             </div>
             <br />
             <div className="inputTitle">Friends?</div>
-            <div><MultipleValueTextInput
+            <div className="friendcodes"><MultipleValueTextInput
                     onItemAdded={(item, allItems) => addFriend(item)}
                     onItemDeleted={(item, allItems) => removeFriend(item)}
                     name="friend-codes"
