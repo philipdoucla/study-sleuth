@@ -45,6 +45,20 @@ class Dashboard extends React.Component {
         return (<button type="button" className="switch" onClick={() => {this.setState({showRating: false})}}>Save</button>);
     }
 
+    leaveGroup =() => {
+        fetch("http://localhost:5000/leaveGroup", {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'include',
+        })
+        .then( ()=> {
+            return <Redirect to="/dashboard"/>
+        }
+        );
+    }
+
+
     render(){
         const {loggedIn} = this.props;
 
@@ -70,6 +84,8 @@ class Dashboard extends React.Component {
                 <div>{this.ratingButton()}</div>
                 <br />
                 <div><Link to="/findgroup" className="switch">Find New Group</Link></div>
+                <br />
+                <div><button type="button" href="#" className="switch" onClick={this.leaveGroup}> Leave Group </button></div>
             </div>
         );
     }

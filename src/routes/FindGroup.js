@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useHistory, Redirect } from "react-router-dom";
+import MultipleValueTextInput from 'react-multivalue-text-input';
 
 function FindGroup({loggedIn}) {
     // replicated the structure of Login.js
     const history = useHistory();
 
     const [state, setState] = useState({
-        groupSize: 5,
-        friendCode: "",
+        preferredGroupSize: 5,
+        friendCodes: [],
     });
 
     const [loading, setLoading] = useState(false);
@@ -19,6 +20,18 @@ function FindGroup({loggedIn}) {
         });
     }
 
+    const addFriend = (friendCode) => {
+        if(!state.friendCodes.includes(friendCode)){
+            setState(prevState => ({friendCodes: [...prevState.friendCodes, friendCode]}));
+        }
+        console.log(state);
+    }
+
+    const removeFriend = (friendCode) => {
+        setState({friendCodes: state.friendCodes.filter(x => x != friendCode)});
+        console.log(state);
+    }
+
     const handleKeypress = e => {
         if (e.key === "Enter") {
             sendSearch();
@@ -27,7 +40,7 @@ function FindGroup({loggedIn}) {
 
     async function sendSearch() {
         setLoading(true);
-        await fetch("http://localhost:5000/login", { // correctly implement later
+        await fetch("http://localhost:5000/startSleuthing", {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -70,7 +83,12 @@ function FindGroup({loggedIn}) {
             </div>
             <br />
             <div className="inputTitle">Friends?</div>
-            <div><input type="text" name="friendCode" className="textbox" value={state.friendCode} onChange={handleChange} /></div>
+            <div className="friendcodes"><MultipleValueTextInput
+                    onItemAdded={(item, allItems) => addFriend(item)}
+                    onItemDeleted={(item, allItems) => removeFriend(item)}
+                    name="friend-codes"
+                    placeholder="Enter your friend codes, separate them with comma or ENTER"
+                    /></div>
             <br />
             <div><a className="switch" href="#" onClick={sendSearch}>{!loading ? "Start Sleuthing!" : "Loading..."}</a></div>
         </div>

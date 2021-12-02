@@ -80,6 +80,15 @@ body {
 	width: 25%;
 }
 
+.friendcodes {
+    border: none;
+	padding: 12px 15px;
+    padding-left: 37%;
+	margin-top: 8px;
+    margin-bottom: 8px;
+    width: 26%;
+}
+
 .check {
     margin-right: 0.5%;
 }
