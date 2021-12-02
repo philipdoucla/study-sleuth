@@ -166,6 +166,11 @@ routes.post('/leaveGroup', authenticated, async (req, res) => {
     // disband the group if person is the creator
     const grp = await req.user.getGroup();
     if (grp.creator === req.user.id) {
+        for (const member of await grp.getUsers()) {
+            member.group = null;
+            member.groupState = GroupStates.NotSearching;
+            await member.save();
+        }
         await grp.destroy();
         req.user.groupState = GroupStates.NotSearching;
         await req.user.save();

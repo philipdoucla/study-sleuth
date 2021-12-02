@@ -11,6 +11,7 @@ const Profile = ({ profile }) => {
         residence: "",
         firstName: "",
         lastName: "",
+        myCode: "",
     });
     const stateRef = useRef({});
     stateRef.current = state
@@ -123,6 +124,7 @@ const Profile = ({ profile }) => {
             residence: residence[profile.residence],
             firstName: profile.fname,
             lastName: profile.lname,
+            myCode: profile.id,
         })
     }, []);
 
@@ -141,6 +143,8 @@ const Profile = ({ profile }) => {
                 <div>
                     <center><ClassSearch text={profile.academicClass} updateClass={updateClass}/></center>
                 </div>
+                <div className="inputTitle">My Friend Code:</div>
+                <div><input readOnly="true" type="text" name="myCode" className="textbox" defaultValue={state.myCode}/><br /></div>
                 <div className="inputTitle">Major:</div>
                 <div>
                     <select name="major" className="selector" value={state.major} onChange={handleChange}>
