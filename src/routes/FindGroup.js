@@ -55,6 +55,7 @@ function FindGroup({loggedIn}) {
             .then(async response => {
                 if (response.ok) {
                     history.push("/dashboard")
+                    window.location.reload(false)
                 } else {
                     return response.json()
                 }

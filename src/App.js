@@ -66,7 +66,7 @@ class App extends React.Component {
     
     constructor(props) {
         super(props);
-        this.state = {fname: "", lname: "", academicClass: "", id: "", major: null, residence: null, loggedIn: false};
+        this.state = {fname: "", lname: "", academicClass: "", id: "", major: null, residence: null, loggedIn: false, groupState: null};
         
     }
     componentWillMount(){
@@ -94,6 +94,7 @@ class App extends React.Component {
                 academicClass: data.academicClass,
                 major: data.major,
                 residence: data.residence,
+                groupState: data.groupState,
                 id: data.id,
             })
         })
@@ -119,7 +120,7 @@ class App extends React.Component {
                             <FindGroup loggedIn={this.state.loggedIn}/>
                         </Route>
                         <Route path="/dashboard">
-                            <Dashboard loggedIn={this.state.loggedIn}/>
+                            <Dashboard profile={this.state} loggedIn={this.state.loggedIn} updateLoggedIn={this.updateLoggedIn}/>
                         </Route>
                         {/* must come last because of pattern matching */}
                         <Route path="/">

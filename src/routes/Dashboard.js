@@ -46,6 +46,7 @@ class Dashboard extends React.Component {
     }
 
     leaveGroup =() => {
+        const {updateLoggedIn} = this.props;
         fetch("http://localhost:5000/leaveGroup", {
             method: 'POST',
             mode: 'cors',
@@ -53,6 +54,7 @@ class Dashboard extends React.Component {
             credentials: 'include',
         })
         .then( ()=> {
+            updateLoggedIn();
             return <Redirect to="/dashboard"/>
         }
         );
@@ -60,7 +62,7 @@ class Dashboard extends React.Component {
 
 
     render(){
-        const {loggedIn} = this.props;
+        const {loggedIn, updateLoggedIn} = this.props;
 
         if(!loggedIn) {
             return (<Redirect to="login"/>)
@@ -74,18 +76,18 @@ class Dashboard extends React.Component {
                 <div>
                     <ul id="memberList" className="grouplist">
     
-                    {(this.state.members || []).map((item, i) => (
+                    {this.props.profile.groupState == 2 ? (this.state.members || []).map((item, i) => (
                         <Member data={item} showRating={this.state.showRating} key={i} />
-                    ))}
+                    )) : <center>You are not in a group</center>}
 
                     </ul>
                 </div>
                 <br />
-                <div>{this.ratingButton()}</div>
+                {this.props.profile.groupState == 2 ? <div>{this.ratingButton()}</div> : <div></div>}
                 <br />
-                <div><Link to="/findgroup" className="switch">Find New Group</Link></div>
+                {this.props.profile.groupState <= 1 ? <div><Link to="/findgroup" className="switch">Find New Group</Link></div> : <div></div>}
                 <br />
-                <div><button type="button" href="#" className="switch" onClick={this.leaveGroup}> Leave Group </button></div>
+                {this.props.profile.groupState === 2 ? <div><button type="button" href="#" className="switch" onClick={this.leaveGroup}> Leave Group </button></div> : <div></div>}
             </div>
         );
     }
