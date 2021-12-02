@@ -12,7 +12,8 @@ class Dashboard extends React.Component {
             groupSize: 0,
             memberName: [],
             memberID: [],
-            showRating: false
+            showRating: false,
+            starCount: 0
         };
     }
 
@@ -68,12 +69,17 @@ class Dashboard extends React.Component {
         return (<button type="button" className="switch" onClick={() => {this.setState({showRating: false})}}>Save</button>);
     }
     saveRatings = () => {
-        console.log("hi");
+        console.log();
     }
 
     groupMember = (memberName, showRating) => {
         return (
-            <li>{memberName}{showRating ? <ReactStars count={5} onChange={this.updateRating} size={24} activeColor="#ffd700"/> : null}</li>
+            <li>{memberName}{showRating ? <ReactStars count={5} onChange={newRating => {
+                this.state.starCount = newRating;
+                console.log(this.state.starCount);
+                }} size={24} activeColor="#ffd700"/> : null}</li>
+            //console.log(this.updateRating),
+            //this.state.starCount = this.updateRating,
         )
     }    
 
