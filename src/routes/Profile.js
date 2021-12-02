@@ -151,15 +151,10 @@ const Profile = ({ profile }) => {
                 <div className="inputTitle">Residence:</div>
                 <div>
                     <select name="residence" className="selector" value={state.residence} onChange={handleChange}>
-                        <option value="Rieber">Centennial Hall</option>
-                        <option value="De Neve">De Neve Plaza</option>
-                        <option value="De Neve">Dykstra Hall</option>
-                        <option value="Hedrick">Hedrick Court</option>
-                        <option value="Rieber">Olympic Hall</option>
-                        <option value="Rieber">Rieber Court</option>
-                        <option value="Sproul">Sproul Plaza</option>
-                        <option value="Sproul">Sunset Village</option>
-                        <option value="Hedrick">Appartments</option>
+                        <option value="De Neve">De Neve Plaza/Dykstra Hall</option>
+                        <option value="Rieber">Rieber Court/Olympic/Centennial</option>
+                        <option value="Sproul">Sproul Plaza/Sunset Village</option>
+                        <option value="Hedrick">Hedrick Court/Appartments</option>
                     </select>
                 </div>
                 <h1>Account</h1>
