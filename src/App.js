@@ -66,7 +66,7 @@ class App extends React.Component {
     
     constructor(props) {
         super(props);
-        this.state = {fname: "", lname: "", academicClass: "", major: null, residence: null, loggedIn: false};
+        this.state = {fname: "", lname: "", academicClass: "", id: "", major: null, residence: null, loggedIn: false};
         
     }
     componentWillMount(){
@@ -94,6 +94,7 @@ class App extends React.Component {
                 academicClass: data.academicClass,
                 major: data.major,
                 residence: data.residence,
+                id: data.id,
             })
         })
         .catch(() => {})
