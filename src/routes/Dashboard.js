@@ -1,6 +1,6 @@
 import { Link, Redirect } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-
+import ReactStars from 'react-rating-stars-component'
 
 class Dashboard extends React.Component {
     // TODO: needs to actually display data and junk
@@ -9,9 +9,9 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            groupSize: 0,
-            memberName: [],
-            memberID: [],
+            members: [],
+            showRating: false,
+            starCount: 0
         };
     }
 
@@ -26,38 +26,24 @@ class Dashboard extends React.Component {
             },
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
-            //body: JSON.stringify(state)
         })
         .then((response) => response.json())
         .then(data => {
-            this.setState({groupSize: data.groupmates.length})
-            
-            let tempMemberName = data.groupmates.map(function(user) {
-                return user.firstName;
-            })
-            this.setState({ memberName: [...this.state.memberName, ...tempMemberName ] })
-
-            let tempMemberLName = data.groupmates.map(function(user) {
-                return user.lastName;
-            })
-            for(let i = 0; i < this.state.groupSize; i++) {
-                this.state.memberName[i] = ( [this.state.memberName[i], tempMemberLName[i]].join(' '))
-            }
-
-            let tempMemberID = data.groupmates.map(function(user) {
-                return user.id;
-            })
-            this.setState({ memberID: [...this.state.memberID, ...tempMemberID ] })
-
+            this.setState({
+                members: data.groupmates
+            });
         })
-        .then(
-            console.log('updated?')
-        )
         .catch((error) => {
             console.error('Error:', error);
-          })
-        
-      }
+        });
+    }
+      
+    ratingButton = () => {
+        if(!this.state.showRating) {
+            return (<button type="button" className="switch" onClick={() => {this.setState({showRating: true})}}>Rate Your Group</button>);
+        }
+        return (<button type="button" className="switch" onClick={() => {this.setState({showRating: false})}}>Save</button>);
+    }
 
     leaveGroup =() => {
         fetch("http://localhost:5000/leaveGroup", {
@@ -81,7 +67,6 @@ class Dashboard extends React.Component {
         }
 
         return(
-            console.log('render' + this.state.groupSize + this.state.memberName[0]),
             // will need to display group data dynamically
             <div>
                 <h1>Dashboard</h1>
@@ -89,14 +74,14 @@ class Dashboard extends React.Component {
                 <div>
                     <ul id="memberList" className="grouplist">
     
-                    {(this.state.memberName || []).map(item => (
-                     <li key={item}>{item}</li>
+                    {(this.state.members || []).map((item, i) => (
+                        <Member data={item} showRating={this.state.showRating} key={i} />
                     ))}
 
                     </ul>
                 </div>
                 <br />
-                <div><button type="button" className="switch">Rate Your Group</button></div>
+                <div>{this.ratingButton()}</div>
                 <br />
                 <div><Link to="/findgroup" className="switch">Find New Group</Link></div>
                 <br />
@@ -106,4 +91,45 @@ class Dashboard extends React.Component {
     }
 }
 
+function Member(props) {
+    const memberName = props.data.firstName + ' ' + props.data.lastName;
+
+    const onRated = newRating => {
+        fetch('http://localhost:5000/rateUser', {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                redirect: 'follow',
+                referrerPolicy: 'no-referrer'
+            },
+            body: JSON.stringify({
+                target: props.data.id,
+                value: newRating
+            })
+        })
+        .then(() => {
+            console.log(`Rated user ${props.data.id} with ${newRating} stars`)
+        });
+    };
+
+    return (
+        <li>{memberName} (<a href={`mailto:${props.data.email}`}>{props.data.email}</a>) {props.showRating ?
+            <ReactStars count={5} onChange={onRated} size={24} activeColor="#ffd700" /> : null}</li>
+    );
+}
+
 export default Dashboard;
+
+
+/*
+
+
+    
+
+    
+
+
+*/
