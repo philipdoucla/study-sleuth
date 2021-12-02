@@ -67,7 +67,7 @@ routes.post('/startSleuthing', authenticated, async (req, res) => {
             return res.status(422).json({
                 error: `No user with the friend code ${fc} exists`
             });
-        } else if ('id' in (await fcUser.getGroup())) {
+        } else if (fcUser.group) {
             return res.status(422).json({
                 error: `Friend ${fc} is already in a group`
             });
