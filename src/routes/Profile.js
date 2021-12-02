@@ -11,7 +11,6 @@ const Profile = ({ profile }) => {
         residence: "",
         firstName: "",
         lastName: "",
-        myCode: "",
     });
     const stateRef = useRef({});
     stateRef.current = state
@@ -55,7 +54,7 @@ const Profile = ({ profile }) => {
             if (response.ok) {
                 history.push("/profile");
             } else {
-                alert(response.json()["error"])
+                alert((await response.json())["error"])
             }
         })
         setLoading(false); 
@@ -120,11 +119,10 @@ const Profile = ({ profile }) => {
         let residence = ["De Neve", "Sproul", "Rieber", "Hedrick"];
         setState({...state,
             academicClass: profile.academicClass,
-            major: majors[profile.major],
-            residence: residence[profile.residence],
+            major: profile.major ? majors[profile.major] : majors[0],
+            residence: profile.residence ? residence[profile.residence] : residence[0],
             firstName: profile.fname,
             lastName: profile.lname,
-            myCode: profile.id,
         })
     }, []);
 
@@ -143,8 +141,6 @@ const Profile = ({ profile }) => {
                 <div>
                     <center><ClassSearch text={profile.academicClass} updateClass={updateClass}/></center>
                 </div>
-                <div className="inputTitle">My Friend Code:</div>
-                <div><input readOnly="true" type="text" name="myCode" className="textbox" defaultValue={state.myCode}/><br /></div>
                 <div className="inputTitle">Major:</div>
                 <div>
                     <select name="major" className="selector" value={state.major} onChange={handleChange}>
