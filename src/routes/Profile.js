@@ -64,7 +64,7 @@ const Profile = ({ profile }) => {
     const [pw, setPassword] = useState({
         password: "",
         newPassword: "",
-        cNewPassword: "",
+        newPasswordConfirm: "",
     });
 
     const handlePassword = (e) => {
@@ -77,7 +77,7 @@ const Profile = ({ profile }) => {
 
     async function sendPassword() {
         setLoading(true);
-        await fetch("http://localhost:5000/login", { // correctly implement fetch later
+        await fetch("http://localhost:5000/password", { // correctly implement fetch later
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -87,11 +87,11 @@ const Profile = ({ profile }) => {
             },
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
-            body: JSON.stringify(state)
+            body: JSON.stringify(pw)
         })
             .then(async response => {
                 if (response.ok) {
-                    history.push("/dashboard")
+                    history.push("/profile")
                 } else {
                     return response.json()
                 }
@@ -179,7 +179,7 @@ const Profile = ({ profile }) => {
                 <div className="inputTitle">New Password:</div>
                 <div><input type="password" name="newPassword" className="textbox" value={pw.newPassword} onChange={handlePassword} /><br /></div>
                 <div className="inputTitle">Confirm New Password:</div>
-                <div><input type="password" name="cNewPassword" className="textbox" value={pw.cNewPassword} onChange={handlePassword} /><br /></div>
+                <div><input type="password" name="newPasswordConfirm" className="textbox" value={pw.cNewPassword} onChange={handlePassword} /><br /></div>
                 <br />
                 <div><a className="switch" href="#" onClick={sendPassword}>{!loading ? "Save Password" : "Loading..."}</a></div>
                 <br />
