@@ -23,7 +23,7 @@ function initPassport() {
                     if (!user) {
                         return done(null, false, { error: 'A user with that email does not exist.' });
                     }
-                    const correctPassword = await bcrypt.compare(password, user.password);
+                    const correctPassword = await bcrypt.compare(password, user.password());
                     if (!correctPassword) {
                         return done(null, false, { error: 'Incorrect password.' });
                     }
@@ -41,7 +41,9 @@ function initPassport() {
 
     passport.deserializeUser(async (id, done) => {
         try {
-            const user = await User.findOne({where: { id }});
+            const user = await User.findOne({
+                where: { id }
+            });
             done(null, user);
         } catch (err) {
             done(err, null);
@@ -60,11 +62,11 @@ routes.post('/login', (req, res, next) => {
         if (!user) {
             return res.status(401).send(info);
         }
-        req.logIn(user, (err) => {
+        req.logIn(user, async (err) => {
             if (err) {
                 return next(err);
             }
-            return res.json(user);
+            return res.json(await user.toJSON());
         });
     })(req, res, next)
 });
@@ -125,14 +127,10 @@ routes.post('/register', async (req, res) => {
             firstName,
             lastName
         });
-        return res.status(200).json(newUser.toJSON());
+        return res.status(200).json(await newUser.toJSON());
     } catch (error) {
         return res.status(500).json({ error });
     }
-});
-
-routes.get('/me', authenticated, async (req, res) => {
-    return res.status(200).json(req.user.toJSON());
 });
 
 module.exports = {

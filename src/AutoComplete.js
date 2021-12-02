@@ -2,13 +2,14 @@ import React from 'react';
 import './AutoCompleteText.css';
 
 class AutoComplete extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             suggestions: [],
             autocomplete: [],
-            text : '',
+            text : props.text,
         };
+        this.updateClass = props.updateClass;
     }
     componentWillMount = () => {
         throw new Error("Abstract Class")
@@ -22,6 +23,7 @@ class AutoComplete extends React.Component {
             suggestions = this.state.autocomplete.sort().filter(v => regex.test(v));
         }
         this.setState(() => ({suggestions, text:value}));
+        this.updateClass(value);
     }
 
     renderSuggestions () {
@@ -35,7 +37,7 @@ class AutoComplete extends React.Component {
         }
         return (
             <ul>
-                {local_suggestions.map((item) => <li onClick={() => this.suggestionSelected(item)}>{item}</li>)}
+                {local_suggestions.map((item) => <li key={item} onClick={() => this.suggestionSelected(item)}>{item}</li>)}
             </ul>
         );
     }
@@ -45,6 +47,7 @@ class AutoComplete extends React.Component {
             text: value,
             suggestions: [],
         }));
+        this.updateClass(value);
     }
 
     render () {
@@ -61,6 +64,12 @@ class AutoComplete extends React.Component {
 
 
 class ClassSearch extends AutoComplete {
+
+
+    constructor(props) {
+        super(props);
+
+    }
     componentWillMount = async () => {
         let classes_list = [];
         await fetch("https://api.ucla.edu/sis/publicapis/course/getallcourses")

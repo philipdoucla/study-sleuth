@@ -144,7 +144,8 @@
 							"key": "friendCodes[]",
 							"value": "dfc-aa7-571",
 							"description": "array; use multiple friendCodes[] keys",
-							"type": "text"
+							"type": "text",
+							"disabled": true
 						}
 					]
 				},
@@ -212,6 +213,121 @@
 					"port": "5000",
 					"path": [
 						"rateUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Profile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "firstName",
+							"value": "Joe",
+							"description": "string",
+							"type": "text"
+						},
+						{
+							"key": "lastName",
+							"value": "Bruin",
+							"description": "string",
+							"type": "text"
+						},
+						{
+							"key": "residence",
+							"value": "De Neve",
+							"description": "string, one of \"De Neve\", \"Sproul/Sunset Village\", \"Rieber\", \"Hedrick\"",
+							"type": "text"
+						},
+						{
+							"key": "academicClass",
+							"value": "COM SCI 35L",
+							"description": "string",
+							"type": "text"
+						},
+						{
+							"key": "major",
+							"value": "Computer Science and Engineering",
+							"description": "string, one of \"Computer Science\", \"Computer Engineering\", \"Computer Science and Engineering\"",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "newPassword",
+							"value": "password123",
+							"description": "string",
+							"type": "text"
+						},
+						{
+							"key": "newPasswordConfirm",
+							"value": "password123",
+							"description": "string; must match newPassword",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "passwordABC",
+							"description": "string; old password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Leave / Disband Group",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/leaveGroup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"leaveGroup"
 					]
 				}
 			},

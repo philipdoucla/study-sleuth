@@ -17,4 +17,6 @@ Set up credentials in an `.env.local` file in this directory. It should have `DB
 
 Run `npm install`. Start both backend + frontend in development mode using `npm start`. Hot reload is available.
 
+You can run `node scripts/seedDatabase.js` to generate fake users for testing.
+
 The code is currently hard-coded to run on localhost, with ports 3000 and 5000 for frontend and backend, respectively.

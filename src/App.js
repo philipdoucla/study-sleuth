@@ -66,7 +66,7 @@ class App extends React.Component {
     
     constructor(props) {
         super(props);
-        this.state = {fname: "", lname: "", major: null, residence: null, loggedIn: false};
+        this.state = {fname: "", lname: "", academicClass: "", major: null, residence: null, loggedIn: false};
         
     }
     componentWillMount(){
@@ -82,11 +82,21 @@ class App extends React.Component {
             )
         .then(async response => {
             that.setState({loggedIn: response.ok});
-            return response.json()
+            if(response.ok) {
+                return response.json()
+            }
+            return Promise.reject(response);
         })
-        .then(data => {
-            console.log(data);
+        .then((data) => {
+                that.setState({
+                fname: data["firstName"],
+                lname: data.lastName,
+                academicClass: data.academicClass,
+                major: data.major,
+                residence: data.residence,
+            })
         })
+        .catch(() => {})
     }
     
     render() {
@@ -96,13 +106,13 @@ class App extends React.Component {
                     <NavBar loggedIn={this.state.loggedIn} updateLoggedIn={this.updateLoggedIn}/>
                     <Switch>
                         <Route path="/login">
-                            <Login updateLoggedIn={this.updateLoggedIn}/>
+                            <Login loggedIn={this.state.loggedIn} updateLoggedIn={this.updateLoggedIn}/>
                         </Route>
                         <Route path="/register">
                             <Register />
                         </Route>
                         <Route path="/profile">
-                            <Profile loggedIn={this.state.loggedIn}/>
+                            <Profile profile={this.state}/>
                         </Route>
                         <Route path="/findgroup">
                             <FindGroup loggedIn={this.state.loggedIn}/>
