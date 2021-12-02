@@ -116,8 +116,13 @@ function Member(props) {
     };
 
     return (
-        <li>{memberName} (<a href={`mailto:${props.data.email}`}>{props.data.email}</a>) {props.showRating ?
-            <ReactStars count={5} onChange={onRated} size={24} activeColor="#ffd700" /> : null}</li>
+        <li className="groupMember">
+            <div>{memberName}:</div>
+            <div><a className="emailDisplay" href={`mailto:${props.data.email}`}>{props.data.email}</a></div>
+            <div className="ratingstar">
+                {props.showRating ? <ReactStars count={5} onChange={onRated} size={24} activeColor="#ffd700" /> : null}
+            </div>
+        </li>
     );
 }
 

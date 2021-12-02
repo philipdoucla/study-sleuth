@@ -120,22 +120,28 @@ body {
 }
 
 .grouplist {
-    text-align: left;
+    text-align: center;
+    padding: 0;
+}
+
+.emailDisplay {
+    text-align: center;
+    /*padding-right: 5%;*/
 }
 
 .ratingstar {
-    text-align: left;
-    margin-left: -11%;
-    width: 120%;
+    width: 120px;
+}
+
+.groupMember {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    list-style-type: none;
+    margin: 10px 0;
 }
 
 h1 {
     color: #2774AE;
-}
-
-li {
-    margin: auto;
-    list-style-type: none;
-    padding-right: 0%;
-    width: 8%;
 }
