@@ -89,7 +89,7 @@ class App extends React.Component {
         })
         .then((data) => {
                 that.setState({
-                fname: data["firstName"],
+                fname: data.firstName,
                 lname: data.lastName,
                 academicClass: data.academicClass,
                 major: data.major,
